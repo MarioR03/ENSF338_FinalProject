@@ -1,13 +1,15 @@
 package main.java.mylib.datastructures.nodes;
 
-public class SLLNode {
+public class DNode {
     private int data;
-    private SLLNode next;
+    private DNode next;
+    private DNode previous;
 
     //constructor
-    public SLLNode(int data) {
+    public DNode(int data) {
         this.data = data;
         this.next = null;
+        this.previous = null;
     }
     //methods
     public int getData() {
@@ -16,11 +18,17 @@ public class SLLNode {
     public void setData(int data) {
         this.data = data;
     }
-    public SLLNode getNext() {
+    public DNode getNext() {
         return next;
     }
-    public void setNext(SLLNode next) {
+    public void setNext(DNode next) {
         this.next = next;
+    }
+    public DNode getPrevious() {
+        return previous;
+    }
+    public void setPrevious(DNode previous) {
+        this.previous = previous;
     }
     public String toString(){
         return Integer.valueOf(this.data).toString();

@@ -1,23 +1,28 @@
 package main.java.mylib.datastructures.linear;
 
-import main.java.mylib.datastructures.nodes.SLLNode;
+import main.java.mylib.datastructures.nodes.DNode;
 
 public class SLL {
-    SLLNode head;
+    DNode head;
     int counter;
 
-    //Contructor
+    //Contructors
     public SLL() {
         this.head = null;
         this.counter = 0;
     }
 
+    public SLL(DNode node) {
+        this.head = node;
+        this.counter = 1;
+    }
+
     // Insertions
-    public void tailInsert(SLLNode node) {
+    public void tailInsert(DNode node) {
         if (this.counter == 0) {
             this.head = node;
         } else {
-            SLLNode last = this.head;
+            DNode last = this.head;
             while (last.getNext() != null) {
                 last = last.getNext();
             }
@@ -27,11 +32,11 @@ public class SLL {
     }
 
     public void tailInsert(int data) {
-        SLLNode node = new SLLNode(data);
+        DNode node = new DNode(data);
         if (this.counter == 0) {
             this.head = node;
         } else {
-            SLLNode last = this.head;
+            DNode last = this.head;
             while (last.getNext() != null) {
                 last = last.getNext();
             }
@@ -40,7 +45,7 @@ public class SLL {
         this.counter++;
     }
 
-    public void headInsert(SLLNode node) {
+    public void headInsert(DNode node) {
         if (this.counter == 0) {
             this.head = node;
         } else {
@@ -51,7 +56,7 @@ public class SLL {
     }
 
     public void headInsert(int data) {
-        SLLNode node = new SLLNode(data);
+        DNode node = new DNode(data);
         if (this.counter == 0) {
             this.head = node;
         } else {
@@ -61,13 +66,13 @@ public class SLL {
         this.counter++;
     }
 
-    public void midInsert(SLLNode node, int index) throws IndexOutOfBoundsException {
+    public void midInsert(DNode node, int index) throws IndexOutOfBoundsException {
         if (index < 0 || index > this.counter) { // Incase they try to put a node in a position further out than the last
                                     // position
             throw new IndexOutOfBoundsException();
         }
 
-        SLLNode temp = this.head;
+        DNode temp = this.head;
 
         for (int i = 0; i < index - 1; i++) {
             temp = temp.getNext();
@@ -84,8 +89,8 @@ public class SLL {
             throw new IndexOutOfBoundsException();
         }
 
-        SLLNode node = new SLLNode(data);
-        SLLNode temp = this.head;
+        DNode node = new DNode(data);
+        DNode temp = this.head;
 
         for (int i = 0; i < index - 1; i++) {
             temp = temp.getNext();
@@ -123,8 +128,8 @@ public class SLL {
             this.counter = 0;
             return;
         }
-        // Otherwisem iterate thriugh the list to find the second-to-last node
-        SLLNode temp = this.head;
+        // Otherwise iterate through the list to find the second-to-last node
+        DNode temp = this.head;
         for (int i = 0; i < this.counter - 2; i++) {
             temp = temp.getNext();
         }
@@ -143,7 +148,7 @@ public class SLL {
             headDelete();
         } else {
             // Find the node immediately before the node to be deleted
-            SLLNode prevNode = this.head;
+            DNode prevNode = this.head;
             for (int i = 0; i < index - 1; i++) {
                 prevNode = prevNode.getNext();
             }
@@ -163,13 +168,13 @@ public class SLL {
     }
 
     //THIS IS TO RETRIEVE DATA
-    public int getData(int index) throws IndexOutOfBoundsException {
+    public int getDataAtIndex(int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= this.counter) {
             // The index is out of bounds, so throw an exception
             throw new IndexOutOfBoundsException();
         } else {
             // Find the node at the given index
-            SLLNode node = this.head;
+            DNode node = this.head;
             for (int i = 0; i < index; i++) {
                 node = node.getNext();
             }
@@ -177,5 +182,10 @@ public class SLL {
             return node.getData();
         }
     }
-    
+    public int getLength(){
+        return this.counter;
+    }
+
+
+
 }
