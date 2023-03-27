@@ -1,9 +1,9 @@
 package main.java.mylib.datastructures.linear;
 
-import main.java.mylib.datastructures.nodes.SLLNode;
+import main.java.mylib.datastructures.nodes.DNode;
 
 public class SLL {
-    SLLNode head;
+    DNode head;
     int counter;
 
     // Contructors
@@ -12,17 +12,17 @@ public class SLL {
         this.counter = 0;
     }
 
-    public SLL(SLLNode node) {
+    public SLL(DNode node) {
         this.head = node;
         this.counter = 1;
     }
 
     // Insertions
-    public void InsertTail(SLLNode node) {
+    public void InsertTail(DNode node) {
         if (this.counter == 0) {
             this.head = node;
         } else {
-            SLLNode last = this.head;
+            DNode last = this.head;
             while (last.getNext() != null) {
                 last = last.getNext();
             }
@@ -32,11 +32,11 @@ public class SLL {
     }
 
     public void InsertTail(int data) {
-        SLLNode node = new SLLNode(data);
+        DNode node = new DNode(data);
         if (this.counter == 0) {
             this.head = node;
         } else {
-            SLLNode last = this.head;
+            DNode last = this.head;
             while (last.getNext() != null) {
                 last = last.getNext();
             }
@@ -45,7 +45,7 @@ public class SLL {
         this.counter++;
     }
 
-    public void InsertHead(SLLNode node) {
+    public void InsertHead(DNode node) {
         if (this.counter == 0) {
             this.head = node;
         } else {
@@ -56,7 +56,7 @@ public class SLL {
     }
 
     public void InsertHead(int data) {
-        SLLNode node = new SLLNode(data);
+        DNode node = new DNode(data);
         if (this.counter == 0) {
             this.head = node;
         } else {
@@ -66,7 +66,7 @@ public class SLL {
         this.counter++;
     }
 
-    public void Insert(SLLNode node, int index) throws IndexOutOfBoundsException { // Can they put something at position
+    public void Insert(DNode node, int index) throws IndexOutOfBoundsException { // Can they put something at position
                                                                                    // zero?
         if (index < 0 || index > this.counter) { // Incase they try to put a node in a position further out than the
                                                  // last
@@ -74,7 +74,7 @@ public class SLL {
             throw new IndexOutOfBoundsException();
         }
 
-        SLLNode temp = this.head;
+        DNode temp = this.head;
 
         for (int i = 0; i < index - 1; i++) {
             temp = temp.getNext();
@@ -91,8 +91,8 @@ public class SLL {
             throw new IndexOutOfBoundsException();
         }
 
-        SLLNode node = new SLLNode(data);
-        SLLNode temp = this.head;
+        DNode node = new DNode(data);
+        DNode temp = this.head;
 
         for (int i = 0; i < index - 1; i++) {
             temp = temp.getNext();
@@ -131,7 +131,7 @@ public class SLL {
             return;
         }
         // Otherwisem iterate thriugh the list to find the second-to-last node
-        SLLNode temp = this.head;
+        DNode temp = this.head;
         for (int i = 0; i < this.counter - 2; i++) {
             temp = temp.getNext();
         }
@@ -141,16 +141,16 @@ public class SLL {
         this.counter--;
     }
 
-    public void Delete(SLLNode node) {
+    public void Delete(DNode node) {
         // Check if the node is the head
         if (this.head.getData() == node.getData()) {
             this.head = this.head.getNext();
             this.counter--;
             return;
         } else {// check anywhere else
-            SLLNode prevNode = this.head;
+            DNode prevNode = this.head;
             for (int i = 0; i < this.counter; i++) {
-                SLLNode current = prevNode.getNext();
+                DNode current = prevNode.getNext();
                 if (current.getData() == node.getData()) {
                     prevNode.setNext(current.getNext());
                     this.counter--;
@@ -170,8 +170,8 @@ public class SLL {
         this.counter = 0;
     }
 
-    public SLLNode Search(SLLNode node) {
-        SLLNode current = this.head;
+    public DNode Search(DNode node) {
+        DNode current = this.head;
         for (int i = 0; i < this.counter; i++) {
             if (node.getData() == current.getData()) {
                 return current;
@@ -188,8 +188,8 @@ public class SLL {
             return;
         }
 
-        SLLNode current = this.head.getNext();
-        SLLNode prev = this.head;
+        DNode current = this.head.getNext();
+        DNode prev = this.head;
         while (current != null) {
             if (current.getData() < prev.getData()) {
                 // Remove the current node from the list
@@ -206,19 +206,19 @@ public class SLL {
         }
 
         // Set the head of the list to the first node
-        SLLNode newHead = this.head.getNext();
+        DNode newHead = this.head.getNext();
         this.head.setNext(null);
         this.head = newHead;
     }
 
-    public void SortedInsert(SLLNode node) {
+    public void SortedInsert(DNode node) {
         // Check if the list is empty or the new node's data is less than the head
         if (this.head == null || node.getData() < this.head.getData()) {
             node.setNext(this.head);
             this.head = node;
         } else {
             // Find the node in the list after which the new node should be inserted
-            SLLNode temp = this.head;
+            DNode temp = this.head;
             while (temp.getNext() != null && temp.getNext().getData() <= node.getData()) {
                 temp = temp.getNext();
             }
@@ -234,7 +234,7 @@ public class SLL {
     
         // Determine the sorted status of the list
         boolean sorted = true;
-        SLLNode current = this.head;
+        DNode current = this.head;
         while (current != null && current.getNext() != null) {
             if (current.getData() > current.getNext().getData()) {
                 sorted = false;
