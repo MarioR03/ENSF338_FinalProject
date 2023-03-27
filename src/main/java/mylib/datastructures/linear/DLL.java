@@ -138,12 +138,12 @@ public class DLL extends SLL {
         }
     }
 
-    @Override
-    public void clear() {
-        super.clear();
+
+    public void Clear() {
+        super.Clear();
         this.tail = null;
     }
-    @Override
+
     public int getDataAtIndex(int index) throws IndexOutOfBoundsException {
         return super.getDataAtIndex(index);
     }
