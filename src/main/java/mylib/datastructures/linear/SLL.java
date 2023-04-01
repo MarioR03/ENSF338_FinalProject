@@ -3,8 +3,8 @@ package main.java.mylib.datastructures.linear;
 import main.java.mylib.datastructures.nodes.DNode;
 
 public class SLL {
-    DNode head;
-    int counter;
+    private DNode head;
+    private int counter;
 
     // Contructors
     public SLL() {
@@ -103,7 +103,7 @@ public class SLL {
     }
 
     // Deletions
-    public void DeleteHead() {
+    public void deleteHead() {
         // If the list is empty, do nothing
         if (this.head == null) {
             return;
@@ -119,7 +119,7 @@ public class SLL {
         }
     }
 
-    public void DeleteTail() {
+    public void deleteTail() {
         // If the list is empty, do nothing
         if (this.head == null) {
             return;
