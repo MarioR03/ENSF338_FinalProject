@@ -3,9 +3,9 @@ package main.java.mylib.datastructures.linear;
 import main.java.mylib.datastructures.nodes.DNode;
 
 public class SLL {
-    DNode head;
-    DNode tail;
-    int counter;
+    protected DNode head;
+    protected DNode tail;
+    protected int counter;
 
     // Contructors
     public SLL() {
@@ -24,6 +24,7 @@ public class SLL {
     public void InsertHead(DNode node) {
         // If the list is empty
         if (this.counter == 0) {
+            node.setNext(null);
             this.head = node;
             this.tail = node;
         } else {
@@ -46,7 +47,7 @@ public class SLL {
         this.counter++;
     }
 
-    public void insert(DNode node, int position) throws IndexOutOfBoundsException {
+    public void Insert(DNode node, int position) throws IndexOutOfBoundsException {
         if (position < 0 || position > this.counter) {
             throw new IndexOutOfBoundsException();
         }
@@ -111,7 +112,7 @@ public class SLL {
     
 
     //helper function
-    private boolean isSorted(){
+    protected boolean isSorted(){
         if (this.head == null || this.head.getNext() == null){
             return true;
         }
@@ -261,12 +262,7 @@ public class SLL {
                 current = current.getNext();
             }
         }
-    
-        // Set the head of the list to the first node
-        // DNode newHead = this.head.getNext();
-        // this.head.setNext(null);
-        // this.head = newHead;
-    }    
+    }
 
     // THIS IS TO CLEAR THE WHOLE LL
     public void Clear() {

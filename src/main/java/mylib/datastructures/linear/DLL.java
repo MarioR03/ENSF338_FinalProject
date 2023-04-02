@@ -3,92 +3,146 @@ package main.java.mylib.datastructures.linear;
 import main.java.mylib.datastructures.nodes.DNode;
 
 public class DLL extends SLL {
-    private DNode head;
-    private DNode tail;
-    private int counter;
 
-    //Contructor
+    // Contructor
     public DLL() {
-        this.head = null;
-        this.tail = null;
-        this.counter = 0;
+        super();
     }
 
     public DLL(DNode node) {
-        this.head = node;
-        this.tail = node;
-        this.counter = 1;
+        super(node);
     }
 
-    // Insertions
-    public void tailInsert(DNode node) {
-
+    @Override
+    public void InsertHead(DNode node) {
+        // If the list is empty
         if (this.counter == 0) {
-            this.head = node;
-            this.tail = node;
-        } else {
-            node.setPrevious(this.tail);        // set previous of new node to tail
-            this.tail.setNext(node);            // set next of tail to new node
-            this.tail = node;                   // set tail to new node
-        }
-        counter++;
-    }
-
-    public void tailInsert(int data) {
-        DNode node = new DNode(data);
-        tailInsert(node);
-    }
-
-    public void headInsert(DNode node) {
-        if (this.counter == 0) {
+            node.setNext(null);
+            node.setPrevious(null);
             this.head = node;
             this.tail = node;
         } else {
             this.head.setPrevious(node); // set previous node of head to new node
-            node.setNext(this.head);     // set next node to current head
-            node.setPrevious(null);      // node is new head, should not have a previous
+            node.setNext(this.head); // set next node to current head
+            node.setPrevious(null); // node is new head, should not have a previous
             this.head = node;
         }
         this.counter++;
     }
 
-    public void headInsert(int data) {
-        DNode node = new DNode(data);
-        headInsert(node);
+    // Insertions
+    @Override
+    public void InsertTail(DNode node) {
+        if (this.counter == 0) {
+            node.setNext(null);
+            node.setPrevious(null);
+            this.head = node;
+            this.tail = node;
+        } else {
+            node.setPrevious(this.tail); // set previous of new node to tail
+            this.tail.setNext(node); // set next of tail to new node
+            this.tail = node; // set tail to new node
+            node.setNext(null);
+        }
+        counter++;
     }
 
-    public void midInsert(DNode node, int index) throws IndexOutOfBoundsException {
-        if (index < 0 || index > this.counter) { // Incase they try to put a node in a position further out than the last
+    @Override
+    public void Insert(DNode node, int position) throws IndexOutOfBoundsException {
+        if (position < 0 || position > this.counter) { // Incase they try to put a node in a position further out than
+                                                       // the last
             // position
             throw new IndexOutOfBoundsException();
         }
 
-        DNode temp = this.head;
+        node.setNext(null);
+        node.setPrevious(null);
+        if (position == 0) { // inserting at the beginning of the list
+            node.setNext(this.head);
+            this.head = node;
+            if (this.counter == 0) {
+                // the list was empty before, so update the tail pointer
+                this.tail = node;
+            } else {
+                node.getNext().setPrevious(node);
+            }
+        } else if (position == this.counter) { // inserting at the end of the list
+            if (this.counter == 0) {
+                // the list was empty before, so set both head and tail to the new node
+                this.head = node;
+                this.tail = node;
+            } else {
+                // update the next pointer of the current tail node to point to the new node
+                this.tail.setNext(node);
+                node.setPrevious(this.tail);
+                // update the tail pointer to the new node
+                this.tail = node;
+            }
+        } else { // inserting in the middle of the list
+            DNode temp = this.head;
+            for (int i = 0; i < position - 1; i++) {
+                temp = temp.getNext();
+            }
+            node.setNext(temp.getNext()); // node <-> the one after temp
+            temp.getNext().setPrevious(node);
 
-        for (int i = 0; i < index - 1; i++) {
-            temp = temp.getNext();
+            temp.setNext(node); // temp <-> node
+            node.setPrevious(temp); // temp <-> node <-> the one after temp
         }
-        node.setNext(temp.getNext());       // node <-> the one after temp
-        temp.getNext().setPrevious(node);
-
-        temp.setNext(node);                 // temp <-> node
-        node.setPrevious(temp);
-        this.counter++;                     // temp <-> node <-> the one after temp
+        this.counter++;
     }
 
-    public void midInsert(int data, int index) throws IndexOutOfBoundsException {
-        DNode node = new DNode(data);
-        midInsert(node, index);
+    @Override
+    public void SortedInsert(DNode node) {
+        node.setNext(null);
+        node.setPrevious(null);
+
+        if (!isSorted()) {
+            this.Sort();
+        }
+
+        // Check if the list is empty or the new node's data is less than the head
+        if (this.head == null) {
+            this.head = node;
+            this.tail = node;
+        } else if (node.getData() < this.head.getData()) {
+            node.setNext(this.head);
+            this.head.setPrevious(node);
+            this.head = node;
+        } else {
+            // Find the node in the list after which the new node should be inserted
+            DNode temp = this.head;
+            while (temp.getNext() != null && temp.getNext().getData() <= node.getData()) {
+                temp = temp.getNext();
+            }
+            // Insert the new node after the found node
+            if (temp.getNext() != null) {
+                node.setNext(temp.getNext());
+                temp.getNext().setPrevious(node);
+                temp.setNext(node);
+                node.setPrevious(temp);
+            } else {
+                temp.setNext(node);
+                node.setPrevious(temp);
+                this.tail = node;
+            }
+        }
+        this.counter++;
     }
+
+    // Search will just use the superclass
 
     // Deletions
-
-    public void deleteHead() {
-        super.deleteHead();
-        this.head.setPrevious(null);
+    @Override
+    public void DeleteHead() {
+        super.DeleteHead();
+        if (this.head != null) {
+            this.head.setPrevious(null);
+        }
     }
 
-    public void deleteTail() {
+    @Override
+    public void DeleteTail() {
         // If the list is empty, do nothing
         if (this.head == null) {
             return;
@@ -106,125 +160,82 @@ public class DLL extends SLL {
         }
     }
 
-    public void midDelete(int index) throws IndexOutOfBoundsException {
-        if (index < 0 || index >= this.counter) {
-            // The index is out of bounds, so throw an exception
-            throw new IndexOutOfBoundsException();
-        } else if (index == 0) {
-            // If the index is 0, call headDelete() to delete the head node
-            deleteHead();
-        } else if (index == this.counter - 1) {
-            // If the index is the last element, just call tailDelete()
-            deleteTail();
+    @Override
+    public void Delete(DNode node) {
+        // Check if the node is the head
+        if (this.head.getData() == node.getData()) {
+            this.DeleteHead();
+        } else if (this.tail.getData() == node.getData()) {
+            // Check if the node is the tail
+            this.DeleteTail();
         } else {
-            // Find the node immediately before the node to be deleted
-            DNode prevNode = this.head;
-            for (int i = 0; i < index - 1; i++) {
-                prevNode = prevNode.getNext();
+            // Check anywhere else in the list
+            DNode temp = this.head;
+            for (int i = 0; i < this.counter - 1; i++) {
+                if (temp.getData() == node.getData()) {
+                    DNode previousDNode = temp.getPrevious();
+                    previousDNode.setNext(temp.getNext());
+                    previousDNode.getNext().setPrevious(previousDNode);
+                    this.counter--;
+                    return;
+                }
             }
-
-            // Find node immediately after node to delete
-            DNode afterNode = prevNode.getNext().getNext();
-
-            //Set previous node to point after
-            prevNode.setNext(afterNode);
-            //Set node after to point to previous node
-            afterNode.setPrevious(prevNode);
-
-            // Decrement the counter to reflect the removal of a node
-            this.counter--;
         }
     }
 
-
-    public void Clear() {
-        super.Clear();
-        this.tail = null;
-    }
-    public DNode Search(DNode node){
-       DNode searchNode = super.Search(node);
-        return searchNode;
-    }
-
-    public void Sort(){
+    @Override
+    public void Sort() {
         // If the list is empty or has only one node, it is already sorted
-        if (this.head == null || this.head.getNext() == null) {
+        if (this.head == null || this.head.getNext() == null || this.isSorted()) {
             return;
         }
 
-        DNode current = this.head;
+        DNode current = this.head.getNext();
+        DNode prev = this.head;
+        while (current != null) {
+            if (current.getData() < prev.getData()) {
+                // Remove the current node from the list
+                prev.setNext(current.getNext());
+                if (current.getNext() != null){
+                    current.getNext().setPrevious(prev);
+                }
+                // Insert the current node at the right position
 
-        while(current != null){
+                if (current.getData() < this.head.getData()) {
+                    InsertHead(current);
+                    this.counter--;
+                } else {
+                    // Find the node in the list after which the new node should be inserted
+                    DNode temp = this.head;
+                    while (temp.getNext() != null && temp.getNext().getData() <= current.getData()) {
+                        temp = temp.getNext();
+                    }
+                    // Insert the new node after the found node
+                    // If only place to insert is tail
+                    if (temp.getNext() == null) {
+                        InsertTail(current);
+                    } else {
+                        current.setNext(temp.getNext());
+                        current.setPrevious(temp);
+                        temp.getNext().setPrevious(current);
+                        temp.setNext(current);
+                    }
+                }
 
-           DNode previous = current.getPrevious();
+                // Update the tail pointer if necessary
+                if (prev.getNext() == null) {
+                    this.tail = prev;
+                }
 
-           // If the previous node is less than current node, then current node does not move
-           if(previous.getData() < current.getData()){
-               current = current.getNext();
-               continue;
-           }
-            // Travel back down the list until we find a node that has a smaller value than current node
-           while(previous.getPrevious() != null && current.getData() < previous.getData())
-               previous = previous.getPrevious();
-
-           // Saves the next node to work on as current node will be moved
-           DNode temp = current.getNext();
-
-            //Sets the nodes before and after current to point to each other
-            current.getNext().setPrevious(current.getPrevious());
-            current.getPrevious().setNext(current.getNext());
-
-           // This means we are at the start of the list and make the current node the new head
-           if(previous.getData() > current.getData()){
-            current.setPrevious(null);      // null <-- current      previous
-            current.setNext(previous);      // null <-- current  --> previous
-            previous.setPrevious(current);  // null <-- current <--> previous
-               this.head = current;
-           }
-           else{
-               // Insert the node into its new location inside the list
-               current.setNext(previous.getNext());     //previous      current  --> previous.next
-               current.setPrevious(previous);           //previous <--  current  --> previous.next
-               current.getNext().setPrevious(current);  //previous <--  current <--> previous.next
-               previous.setNext(current);               //previous <--  current <--> previous.next
-           }
-           // Move to unsorted node in list
-           current = temp;
-        }
-
-
-
-    }
-
-    public void sortedInsert(DNode node) {
-        // Check if the list is empty or the new node's data is less than the head
-        if (this.head == null || node.getData() < this.head.getData()) {
-            node.setNext(this.head);
-            this.head = node;
-            node.setPrevious(null);
-        }
-        else{
-            DNode temp = this.head;
-            while (temp.getNext() != null && temp.getNext().getData() <= node.getData()) {
-                temp = temp.getNext();
+                // Update the current node to the next node
+                current = prev.getNext();
+            } else {
+                // Move to the next node
+                prev = current;
+                current = current.getNext();
             }
-            // Insert the new node after the found node
-            temp.getNext().setPrevious(node); // temp      node <--- temp.getNext
-            node.setNext(temp.getNext());     // temp      node <--> temp.getNext
-            temp.setNext(node);               // temp ---> node <--> temp.getNext
-            node.setPrevious(temp);           // temp <--> node <--> temp.getNext
-
         }
-        this.counter++;
-
     }
 
-    public void Print(){
-        super.Print();
-    }
-
-
+    // Print uses the super class
 }
-
-
-
