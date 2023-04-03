@@ -82,9 +82,13 @@ public class SLL {
     }
     
     public void SortedInsert(DNode node) {
+        node.setNext(null);
+        node.setPrevious(null);
 
-        this.Sort();
-    
+        if (!isSorted()){
+            this.Sort();
+        }
+        
         // Check if the list is empty or the new node's data is less than the head
         if (this.head == null || node.getData() < this.head.getData()) {
             node.setNext(this.head);
@@ -225,28 +229,17 @@ public class SLL {
             return;
         }
     
+        
         DNode current = this.head.getNext();
-        DNode prev = this.head;
+        DNode prev = this.head;                         
         while (current != this.tail.getNext()) {
-            System.out.println(current.getData());
             if (current.getData() < prev.getData()) {
                 // Remove the current node from the list
                 prev.setNext(current.getNext());
+                this.counter--;
                 // Insert the current node at the right position
     
-                if (current.getData() < this.head.getData()) {
-                    current.setNext(this.head);
-                    this.head = current;
-                } else {
-                    // Find the node in the list after which the new node should be inserted
-                    DNode temp = this.head;
-                    while (temp.getNext() != this.tail.getNext() && temp.getNext().getData() <= current.getData()) {
-                        temp = temp.getNext();
-                    }
-                    // Insert the new node after the found node
-                    current.setNext(temp.getNext());
-                    temp.setNext(current);
-                }
+                SortedInsert(current);
     
                 // Update the tail pointer if necessary
                 if (prev.getNext() == null) {

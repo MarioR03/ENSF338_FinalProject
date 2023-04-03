@@ -112,8 +112,7 @@ public class DLL extends SLL {
         } else {
             // Find the node in the list after which the new node should be inserted
             DNode temp = this.head;
-            while ((temp.getNext() != null || temp.getNext() != this.head) && temp.getNext().getData() <= node.getData()) {
-                System.out.println("here");
+            while (temp.getNext() != this.tail.getNext() && temp.getNext().getData() <= node.getData()) {
                 temp = temp.getNext();
             }
             // Insert the new node after the found node
@@ -122,7 +121,7 @@ public class DLL extends SLL {
                 temp.getNext().setPrevious(node);
                 temp.setNext(node);
                 node.setPrevious(temp);
-            } else {
+            } else {//If the node must be placed in the middle
                 temp.setNext(node);
                 node.setPrevious(temp);
                 this.tail = node;
@@ -194,35 +193,17 @@ public class DLL extends SLL {
 
         DNode current = this.head.getNext();
         DNode prev = this.head;
-        while (current != this.head) {
+        while (current != this.tail.getNext()) {
             if (current.getData() < prev.getData()) {
                 // Remove the current node from the list
                 prev.setNext(current.getNext());
-                if (current.getNext() != null){
+                if (current.getNext() != null) {
                     current.getNext().setPrevious(prev);
                 }
-                // Insert the current node at the right position
+                this.counter--;
 
-                if (current.getData() < this.head.getData()) {
-                    InsertHead(current);
-                    this.counter--;
-                } else {
-                    // Find the node in the list after which the new node should be inserted
-                    DNode temp = this.head;
-                    while (temp.getNext() != null && temp.getNext().getData() <= current.getData()) {
-                        temp = temp.getNext();
-                    }
-                    // Insert the new node after the found node
-                    // If only place to insert is tail
-                    if (temp.getNext() == null) {
-                        InsertTail(current);
-                    } else {
-                        current.setNext(temp.getNext());
-                        current.setPrevious(temp);
-                        temp.getNext().setPrevious(current);
-                        temp.setNext(current);
-                    }
-                }
+                // Insert the current node at the right position
+                SortedInsert(current);
 
                 // Update the tail pointer if necessary
                 if (prev.getNext() == null) {
@@ -240,4 +221,12 @@ public class DLL extends SLL {
     }
 
     // Print uses the super class
+
+    //used for testing
+    public DNode getHead(){
+        return this.head;
+    }
+    public DNode getTail(){
+        return this.tail;
+    }
 }

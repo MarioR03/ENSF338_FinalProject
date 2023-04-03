@@ -36,37 +36,38 @@ public class CSLL extends SLL {
 
     @Override
     public void SortedInsert(DNode node) {
-        DNode current = this.head;
-        this.counter++;
+        node.setNext(null);
+        node.setPrevious(null);
 
-        // case 1, if the list is empty
-        if (current == null) {
-            node.setNext(node);
-            this.head = node;
-            this.tail = node;
-
-        } else if (current.getData() >= node.getData()) {
-            // the case when the value is smaller than head
-            current = this.tail;
-
-            current.setNext(node);
+        if (!isSorted()){
+            this.Sort();
+        }
+        
+        // Check if the list is empty or the new node's data is less than the head
+        if (this.head == null || node.getData() < this.head.getData()) {
             node.setNext(this.head);
             this.head = node;
+            if (this.tail == null) {
+                this.tail = node;
+            }
+            //connecting the tail to the new head
+            this.tail.setNext(this.head);
+
         } else {
-            // Case 3
-            while (current.getNext() != this.head && current.getNext().getData() < node.getData())
-                current = current.getNext();
-            node.setNext(current.getNext());
-            current.setNext(node);
+            // Find the node in the list after which the new node should be inserted
+            DNode temp = this.head;
+            while (temp.getNext() != this.tail.getNext() && temp.getNext().getData() <= node.getData()) {
+                temp = temp.getNext();
+                temp.getNext().getData();
+            }
+            // Insert the new node after the found node
+            node.setNext(temp.getNext());
+            temp.setNext(node);
+            if (node.getNext() == this.head) {
+                this.tail = node;
+            }
         }
-
-        // Making sure the last element is connected to the tail pointer
-        DNode temp = this.head;
-        for (int i = 0; i < this.counter - 1; i++) {
-            temp = temp.getNext();
-        }
-        this.tail = temp;
-
+        this.counter++;
     }
 
     @Override
@@ -127,6 +128,10 @@ public class CSLL extends SLL {
                 previous.setNext(current.getNext());
                 this.counter--;
                 SortedInsert(current);
+                if(previous.getNext() == this.head){
+                    this.tail = previous;
+                }
+                //something wrong here
                 current = previous.getNext();
             }else{
                 current = current.getNext();
@@ -157,4 +162,13 @@ public class CSLL extends SLL {
         }
         System.out.println();
     }
+
+    //these are used for tests==
+    public int getHead(){
+        return this.head.getData();
+    }
+    public int getTail(){
+        return this.tail.getData();
+    }
 }
+
