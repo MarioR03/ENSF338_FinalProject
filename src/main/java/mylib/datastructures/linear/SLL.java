@@ -83,9 +83,7 @@ public class SLL {
     
     public void SortedInsert(DNode node) {
 
-        if (!this.isSorted()){
-            this.Sort();
-        }
+        this.Sort();
     
         // Check if the list is empty or the new node's data is less than the head
         if (this.head == null || node.getData() < this.head.getData()) {
@@ -97,7 +95,7 @@ public class SLL {
         } else {
             // Find the node in the list after which the new node should be inserted
             DNode temp = this.head;
-            while (temp.getNext() != null && temp.getNext().getData() <= node.getData()) {
+            while (temp.getNext() != this.tail.getNext() && temp.getNext().getData() <= node.getData()) {
                 temp = temp.getNext();
             }
             // Insert the new node after the found node
@@ -176,7 +174,7 @@ public class SLL {
         // Set the tail pointer to the second-to-last node
         this.tail = temp;
         // Set the next pointer of the second-to-last node to null
-        temp.setNext(null);
+        this.tail.setNext(null);
         // Decrement the counter
         this.counter--;
     }
@@ -229,7 +227,8 @@ public class SLL {
     
         DNode current = this.head.getNext();
         DNode prev = this.head;
-        while (current != null) {
+        while (current != this.tail.getNext()) {
+            System.out.println(current.getData());
             if (current.getData() < prev.getData()) {
                 // Remove the current node from the list
                 prev.setNext(current.getNext());
@@ -241,7 +240,7 @@ public class SLL {
                 } else {
                     // Find the node in the list after which the new node should be inserted
                     DNode temp = this.head;
-                    while (temp.getNext() != null && temp.getNext().getData() <= current.getData()) {
+                    while (temp.getNext() != this.tail.getNext() && temp.getNext().getData() <= current.getData()) {
                         temp = temp.getNext();
                     }
                     // Insert the new node after the found node
