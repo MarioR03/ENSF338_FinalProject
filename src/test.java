@@ -4,16 +4,26 @@ import java.util.Random;
 
 public class test {
     public static void main(String[] args){
-        DLL doublyList = new DLL();
+        CSLL circle = new CSLL();
 
         Random rand = new Random();
 
         for(int i=0; i < 50; i++){
             int int_random = rand.nextInt(50);
-            doublyList.SortedInsert(new DNode(int_random));
+            circle.SortedInsert(new DNode(int_random));
         }
-        doublyList.Print();
-        DNode node = doublyList.Search(new DNode(7));
-        System.out.println(node.getData());
+        circle.Print();
+        System.out.println("---------");
+        circle.Sort();
+        circle.Print();
+
+
+        // SLL linkedList = new SLL();
+        // for(int i=0; i < 50; i++){
+        //     int int_random = rand.nextInt(50);
+        //     linkedList.InsertTail(new DNode(int_random));
+        // }
+        // linkedList.Sort();
+        // linkedList.Print();
     }
 }
