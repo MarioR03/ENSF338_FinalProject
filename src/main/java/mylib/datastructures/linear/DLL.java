@@ -112,7 +112,8 @@ public class DLL extends SLL {
         } else {
             // Find the node in the list after which the new node should be inserted
             DNode temp = this.head;
-            while (temp.getNext() != null && temp.getNext().getData() <= node.getData()) {
+            while ((temp.getNext() != null || temp.getNext() != this.head) && temp.getNext().getData() <= node.getData()) {
+                System.out.println("here");
                 temp = temp.getNext();
             }
             // Insert the new node after the found node
@@ -179,6 +180,7 @@ public class DLL extends SLL {
                     this.counter--;
                     return;
                 }
+                temp = temp.getNext();
             }
         }
     }
@@ -192,7 +194,7 @@ public class DLL extends SLL {
 
         DNode current = this.head.getNext();
         DNode prev = this.head;
-        while (current != null) {
+        while (current != this.head) {
             if (current.getData() < prev.getData()) {
                 // Remove the current node from the list
                 prev.setNext(current.getNext());
