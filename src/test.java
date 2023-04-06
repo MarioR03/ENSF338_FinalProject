@@ -30,19 +30,20 @@ public class test {
         // dcircle.Sort();
         // dcircle.Print();
 
-        CSLL doubly = new CSLL();
+        CDLL doubly = new CDLL();
+        doubly.InsertHead(new DNode(4));
         doubly.InsertHead(new DNode(2));
-        doubly.InsertHead(new DNode(1));
-        doubly.InsertHead(new DNode(3));
+        doubly.InsertHead(new DNode(5));
         // for(int i=0; i < 3; i++){
         //     int int_random = rand.nextInt(50);
         //     doubly.InsertHead(new DNode(int_random));
         // }
         doubly.Print();
-        System.out.println("head: " + doubly.getHead() + " tail: " + doubly.getTail());
+        System.out.println(doubly.printAll());
         System.out.println("---");
         doubly.Sort();
         doubly.Print();
+        System.out.println(doubly.printAll());
 
         //System.out.println("head: " + doubly.getHead() + " tail: " + doubly.getTail());
     }
