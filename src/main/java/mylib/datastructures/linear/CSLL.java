@@ -36,51 +36,53 @@ public class CSLL extends SLL {
 
     @Override
     public void SortedInsert(DNode node) {
-        DNode current = this.head;
-        this.counter++;
-
-        // case 1, if the list is empty
-        if (current == null) {
-            node.setNext(node);
+        if (this.counter == 0) {
             this.head = node;
             this.tail = node;
-
-        } else if (current.getData() >= node.getData()) {
-            // the case when the value is smaller than head
-            current = this.tail;
-
-            current.setNext(node);
+            this.tail.setNext(this.head);
+            this.counter++;
+            return;
+        }
+        if (!isSorted()) {
+            Sort();
+        }
+        DNode current = this.head;
+        DNode prev = this.tail;
+        boolean inserted = false;
+        do {
+            if (node.getData() <= current.getData()) {
+                node.setNext(current);
+                prev.setNext(node);
+                inserted = true;
+                if (current == this.head) {
+                    this.head = node;
+                }
+                break;
+            }
+            prev = current;
+            current = current.getNext();
+        } while (current != this.head);
+        if (!inserted) {
+            this.tail.setNext(node);
             node.setNext(this.head);
-            this.head = node;
-        } else {
-            // Case 3
-            while (current.getNext() != this.head && current.getNext().getData() < node.getData())
-                current = current.getNext();
-            node.setNext(current.getNext());
-            current.setNext(node);
+            this.tail = node;
         }
-
-        // Making sure the last element is connected to the tail pointer
-        DNode temp = this.head;
-        for (int i = 0; i < this.counter - 1; i++) {
-            temp = temp.getNext();
-        }
-        this.tail = temp;
-
+        this.counter++;
     }
 
     @Override
     protected boolean isSorted() {
-        if (this.head == null || this.head.getNext() == null) {
+        int count = this.counter;
+        if (count == 0 || count == 1) {
             return true;
         }
         DNode current = this.head;
-        for (int i = 0; i < this.counter - 1; i++) {
+        do {
             if (current.getData() > current.getNext().getData()) {
                 return false;
             }
             current = current.getNext();
-        }
+        } while (current.getNext() != this.head);
         return true;
     }
 
@@ -107,31 +109,21 @@ public class CSLL extends SLL {
 
     @Override
     public void Sort() {
-        if (this.head == null || this.head.getNext() == null || isSorted()) {
+        if (this.isSorted()) {
             return;
         }
-
-        // check if the tail is connected properly
-        if (this.tail.getNext() != this.head) {
-            this.tail.setNext(head);
-        }
-
-        DNode previous = this.head;
         DNode current = this.head.getNext();
-        for (int i = 0; i < this.counter - 1; i++) {
-            if (current.getData() < previous.getData()) {
-                // take the object out
-                if (current == this.tail) {
-                    this.tail = previous;
+        while (current != head) {
+            DNode temp = this.head;
+            while (temp != current) {
+                if (temp.getData() > current.getData()) {
+                    int tempData = current.getData();
+                    current.setData(temp.getData());
+                    temp.setData(tempData);
                 }
-                previous.setNext(current.getNext());
-                this.counter--;
-                SortedInsert(current);
-                current = previous.getNext();
-            }else{
-                current = current.getNext();
-                previous = previous.getNext();
+                temp = temp.getNext();
             }
+            current = current.getNext();
         }
     }
 
@@ -157,4 +149,15 @@ public class CSLL extends SLL {
         }
         System.out.println();
     }
+
+    // these are used for tests==
+    public String printAll() {
+        return "head: " + this.head.getData() + " head.getNext(): " + head.getNext().getData() + " tail: "
+                + this.tail.getData() + " tail.getNext(): " + this.tail.getNext().getData();
+    }
+
+    public int getTail() {
+        return this.tail.getData();
+    }
+
 }
