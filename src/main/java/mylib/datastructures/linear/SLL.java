@@ -35,11 +35,11 @@ public class SLL {
     }
 
     public void InsertTail(DNode node) {
-        //If the list is empty
+        // If the list is empty
         if (this.counter == 0) {
             this.head = node;
             this.tail = node;
-            //else the list is not empty
+            // else the list is not empty
         } else {
             this.tail.setNext(node);
             this.tail = node;
@@ -51,7 +51,7 @@ public class SLL {
         if (position < 0 || position > this.counter) {
             throw new IndexOutOfBoundsException();
         }
-    
+
         if (position == 0) { // inserting at the beginning of the list
             node.setNext(this.head);
             this.head = node;
@@ -80,15 +80,15 @@ public class SLL {
         }
         this.counter++;
     }
-    
+
     public void SortedInsert(DNode node) {
         node.setNext(null);
         node.setPrevious(null);
 
-        if (!isSorted()){
+        if (!isSorted()) {
             this.Sort();
         }
-        
+
         // Check if the list is empty or the new node's data is less than the head
         if (this.head == null || node.getData() < this.head.getData()) {
             node.setNext(this.head);
@@ -111,16 +111,15 @@ public class SLL {
         }
         this.counter++;
     }
-    
 
-    //helper function
-    protected boolean isSorted(){
-        if (this.head == null || this.head.getNext() == null){
+    // helper function
+    protected boolean isSorted() {
+        if (this.head == null || this.head.getNext() == null) {
             return true;
         }
         DNode current = this.head;
-        while(current.getNext() != null){
-            if (current.getData() > current.getNext().getData()){
+        while (current.getNext() != null) {
+            if (current.getData() > current.getNext().getData()) {
                 return false;
             }
             current = current.getNext();
@@ -139,7 +138,7 @@ public class SLL {
         }
         return null;
     }
-    
+
     // Deletions
     public void DeleteHead() {
         // If the list is empty, do nothing
@@ -182,7 +181,6 @@ public class SLL {
         // Decrement the counter
         this.counter--;
     }
-    
 
     public void Delete(DNode node) {
         // Check if the node is the head
@@ -195,7 +193,7 @@ public class SLL {
             }
             return;
         }
-    
+
         // Check if the node is the tail
         if (this.tail.getData() == node.getData()) {
             // Find the second-to-last node
@@ -208,7 +206,7 @@ public class SLL {
             this.counter--;
             return;
         }
-    
+
         // Check anywhere else in the list
         DNode prevNode = this.head;
         for (int i = 0; i < this.counter - 1; i++) {
@@ -221,31 +219,29 @@ public class SLL {
             prevNode = prevNode.getNext();
         }
     }
-    
 
     public void Sort() {
         // If the list is empty or has only one node, it is already sorted
         if (this.head == null || this.head.getNext() == null || this.isSorted()) {
             return;
         }
-    
-        
+
         DNode current = this.head.getNext();
-        DNode prev = this.head;                         
+        DNode prev = this.head;
         while (current != this.tail.getNext()) {
             if (current.getData() < prev.getData()) {
                 // Remove the current node from the list
                 prev.setNext(current.getNext());
                 this.counter--;
                 // Insert the current node at the right position
-    
+
                 SortedInsert(current);
-    
+
                 // Update the tail pointer if necessary
                 if (prev.getNext() == null) {
                     this.tail = prev;
                 }
-    
+
                 // Update the current node to the next node
                 current = prev.getNext();
             } else {
@@ -268,13 +264,13 @@ public class SLL {
     public void Print() {
         // Print the list length
         System.out.println("List length: " + this.counter);
-    
+
         // Determine the sorted status of the list
         boolean sorted = this.isSorted();
 
         // Print the sorted status
         System.out.println("Sorted: " + (sorted ? "Yes" : "No"));
-    
+
         // Print the list content
         System.out.print("List content: ");
         DNode current = this.head;
@@ -284,6 +280,5 @@ public class SLL {
         }
         System.out.println();
     }
-    
 
 }

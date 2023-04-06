@@ -113,7 +113,6 @@ public class CSLL extends SLL {
             return;
         }
         DNode current = this.head.getNext();
-        DNode prev = this.head;
         while (current != head) {
             DNode temp = this.head;
             while (temp != current) {
@@ -124,7 +123,6 @@ public class CSLL extends SLL {
                 }
                 temp = temp.getNext();
             }
-            prev = current;
             current = current.getNext();
         }
     }

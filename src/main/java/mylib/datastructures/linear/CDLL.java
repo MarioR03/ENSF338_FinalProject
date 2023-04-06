@@ -9,9 +9,6 @@ public class CDLL extends DLL {
     }
 
     public CDLL(DNode node) {
-        super();
-        node.setNext(node);
-        node.setPrevious(node);
     }
 
     @Override
@@ -58,65 +55,73 @@ public class CDLL extends DLL {
 
     @Override
     public void SortedInsert(DNode node) {
-        node.setNext(null);
-        node.setPrevious(null);
-
-        // if (!isSorted()) {
-        // this.Sort();
-        // }
-
-        // Check if the list is empty or the new node's data is less than the head
-        if (this.head == null) {
-            this.head = node;
-            this.tail = node;
+        if (this.head == null) { // list is empty
+            this.head = this.tail = node;
+            node.setPrevious(node); // make it circular
             node.setNext(node);
-            node.setPrevious(node);
-            this.tail.setNext(this.head);
-            this.head.setPrevious(this.tail);
+            return;
+        }
 
-        } else if (node.getData() < this.head.getData()) {
-            node.setNext(this.head);
-            node.setPrevious(this.tail);
-            this.head.setPrevious(node);
-            this.tail.setNext(node);
-            this.head = node;
-        } else {
-            // Find the node in the list after which the new node should be inserted
-            DNode temp = this.head;
-            while (temp.getNext() != this.head && temp.getNext().getData() <= node.getData()) {
-                temp = temp.getNext();
+        if (isSorted()) { // list is sorted
+            DNode current = this.head;
+            while (current.getData() < node.getData() && current != this.tail) {
+                current = current.getNext();
             }
-            // Insert the new node after the found node
 
-            node.setNext(temp.getNext());
-            temp.getNext().setPrevious(node);
-            if(temp.getNext() == this.head){
+            if (current == this.head) { // insert at head
+                this.head = node;
+            }
+
+            node.setNext(current);
+            node.setPrevious(current.getPrevious());
+            current.getPrevious().setNext(node);
+            current.setPrevious(node);
+
+            if (node.getNext() == this.head) { // insert at tail
                 this.tail = node;
             }
-            temp.setNext(node);
-            node.setPrevious(temp);
+        } else { // list is not sorted
+            Sort(); // sort the list first
+            SortedInsert(node); // insert the node after sorting
         }
-        this.counter++;
     }
 
-    //search will use super class
+    protected boolean isSorted() {
+        if (this.head == null || this.head.getNext() == null) {
+            return true;
+        }
+    
+        DNode current = this.head.getNext();
+        DNode prev = this.head;
+        while(current != this.head){
+            if(current.getData() < prev.getData()){
+                return false;
+            }
+            current = current.getNext();
+            prev = prev.getNext();
+        }
+        return true;
+    }
+
+
+    // search will use super class
 
     @Override
-    public void DeleteHead(){
+    public void DeleteHead() {
         super.DeleteHead();
         this.head.setPrevious(this.tail);
         this.tail.setNext(this.head);
     }
 
     @Override
-    public void DeleteTail(){
+    public void DeleteTail() {
         super.DeleteTail();
         this.tail.setNext(this.head);
         this.head.setPrevious(this.tail);
     }
 
     @Override
-    public void Delete(DNode node){
+    public void Delete(DNode node) {
         // Check if the node is the head
         if (this.head.getData() == node.getData()) {
             this.DeleteHead();
@@ -126,7 +131,7 @@ public class CDLL extends DLL {
         } else {
             // Check anywhere else in the list
             DNode temp = this.head;
-            for (int i = 0; i < this.counter-1; i++) {
+            for (int i = 0; i < this.counter - 1; i++) {
                 if (temp.getData() == node.getData()) {
                     DNode previousDNode = temp.getPrevious();
                     previousDNode.setNext(temp.getNext());
@@ -140,9 +145,45 @@ public class CDLL extends DLL {
     }
 
     public void Sort() {
-        super.Sort();
-        this.tail.setNext(this.head);
-        this.head.setPrevious(this.tail);
+        if (this.counter == 0 || this.counter == 1) {
+            // List is empty or has only one element, nothing to sort
+            return;
+        }
+
+        DNode current = this.head.getNext(); // Start from second element
+
+        while (current != this.head) {
+            // Traverse the list from second element to last element
+
+            DNode prev = current.getPrevious();
+            DNode next = current.getNext();
+
+            // Find the correct position to insert current element
+            if (current.getData() < prev.getData()) {
+                DNode temp = current;
+                while (temp.getPrevious() != this.tail && current.getData() < temp.getPrevious().getData()) {
+                    temp = temp.getPrevious();
+                }
+                //take the node out
+                prev.setNext(next);
+                next.setPrevious(prev);
+                if(prev.getNext() == this.head){
+                    this.tail = prev;
+                }
+                //put it back into the most proper spot
+                current.setNext(temp);
+                current.setPrevious(temp.getPrevious());
+                current.getPrevious().setNext(current);
+                current.getNext().setPrevious(current);
+                if(current.getPrevious() == this.tail){
+                    this.head = current;
+                }
+
+                current = next;
+            } else{
+                current = current.getNext();
+            }
+        }
     }
 
     @Override
@@ -150,11 +191,11 @@ public class CDLL extends DLL {
         // Print the list length
         System.out.println("List length: " + this.counter);
 
-        // // Determine the sorted status of the list
-        // boolean sorted = this.isSorted();
+        // Determine the sorted status of the list
+        boolean sorted = this.isSorted();
 
-        // // Print the sorted status
-        // System.out.println("Sorted: " + (sorted ? "Yes" : "No"));
+        // Print the sorted status
+        System.out.println("Sorted: " + (sorted ? "Yes" : "No"));
 
         // Print the list content
         System.out.print("List content: ");
@@ -166,5 +207,9 @@ public class CDLL extends DLL {
             } while (current != this.head);
         }
         System.out.println();
+    }
+    public String printAll() {
+        return "head: " + this.head.getData() + " head.getNext(): " + head.getNext().getData() + " tail: "
+                + this.tail.getData() + " tail.getNext(): " + this.tail.getNext().getData();
     }
 }
