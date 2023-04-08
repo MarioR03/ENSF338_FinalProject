@@ -11,6 +11,7 @@ public class TNode {
         this.left = null;
         this.right = null;
         this.parent = null;
+        this.balance = 0;
     }
     public TNode(int data,int balance, TNode parent, TNode left, TNode right){
         this.data = data;
