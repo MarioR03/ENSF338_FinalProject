@@ -1,6 +1,7 @@
 package main.java.mylib.datastructures.trees;
 import main.java.mylib.datastructures.nodes.TNode;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -55,23 +56,35 @@ public class BST {
 
         public void Insert(TNode node){
 
-        TNode current = this.root;
-        int val = node.getData();
+            // Initialize new Node
+            TNode newNode = node;
+            int val = newNode.getData();
 
+            TNode current = this.root;
+            TNode previous = null;
 
-            if(val <= current.getData())
-                current = current.getLeft();
-            else{
-                current = current.getRight();
+            //Find the bottom of the tree where the node should be added
+            while(current != null) {
+                if (val <= current.getData()){
+                    previous = current;
+                    current = current.getLeft();}
+                else {
+                    previous = current;
+                    current = current.getRight();
+                }
             }
             // Add new node
+
             if(this.root == null){
-                this.root = node;}
-            else if(val <= current.getData()){
-                current.setLeft(node);
+                this.root = newNode;}
+
+            else if(val <= previous.getData()){
+                previous.setLeft(newNode);
+                newNode.setParent(previous);
             }
             else{
-                current.setRight(node);
+                previous.setRight(newNode);
+                newNode.setParent(previous);
             }
         }
         public void Delete(int val){
@@ -82,6 +95,8 @@ public class BST {
             return;
         }
         TNode parentOfDeleted = nodeToDelete.getParent();
+
+
 
         // If deleting a leaf node,set parent to child pointer to null
         if(nodeToDelete.getLeft() == null && nodeToDelete.getRight() == null) {
@@ -97,10 +112,12 @@ public class BST {
         else if(nodeToDelete.getLeft() != null && nodeToDelete.getRight() == null){
             // If deleted node is a left child
             if (parentOfDeleted.getLeft() == nodeToDelete) {
+                nodeToDelete.getLeft().setParent(parentOfDeleted);
                 parentOfDeleted.setLeft(nodeToDelete.getLeft());
             // If deleted node is a right child
             }
             else {
+                nodeToDelete.getLeft().setParent(parentOfDeleted);
                 parentOfDeleted.setRight(nodeToDelete.getLeft());
             }
 
@@ -109,32 +126,56 @@ public class BST {
         else if(nodeToDelete.getLeft() == null && nodeToDelete.getRight() != null){
 
             if (parentOfDeleted.getLeft() == nodeToDelete) {
+                nodeToDelete.getRight().setParent(parentOfDeleted);
                 parentOfDeleted.setLeft(nodeToDelete.getRight());
             }
             else {
+                nodeToDelete.getRight().setParent(parentOfDeleted);
                 parentOfDeleted.setRight(nodeToDelete.getRight());
             }
         }
 
         // Node to delete has two child nodes, swap the deleted node for the smallest node underneath it
         else{
-            // Find smallest node
-            TNode current = nodeToDelete;
-            while(current != null){
+            // Find smallest node in right subtree
+            TNode current = nodeToDelete.getRight();
+
+
+            while(current.getLeft() != null){
                 current = current.getLeft();
             }
+
             //disconnect smallest node from tree
-            current.getParent().setLeft(null);
+
+            //If current is the closest right node
+            if(current.getParent() == nodeToDelete){
+                current.setLeft(nodeToDelete.getLeft());
+                current.getLeft().setParent(current);
+
+            }
             // set children of new node to node that will be deleted
-            current.setRight(nodeToDelete.getRight());
-            current.setLeft(nodeToDelete.getLeft());
+            else {
+                current.getParent().setLeft(null);
+                current.setRight(nodeToDelete.getRight());
+                current.getRight().setParent(current);
+
+                current.setLeft(nodeToDelete.getLeft());
+                current.getLeft().setParent(current);
+
+                }
+
 
             //check if deleted node was a left or right node
+
+
+
             if(parentOfDeleted.getLeft() == nodeToDelete){
                 parentOfDeleted.setLeft(current);
+                current.setParent(parentOfDeleted);
             }
             else{
                 parentOfDeleted.setRight(current);
+                current.setParent(parentOfDeleted);
             }
 
 
@@ -146,13 +187,19 @@ public class BST {
         public TNode Search(int val){
 
         TNode current = this.root;
-
+        if(current == null){
+            System.out.println("Cannot delete, tree is empty");
+            return null;
+        }
         while(current != null){
+
             if(current.getData() == val){
+
                 return current;
             }
-            else if(current.getData() < val){
+            else if(val < current.getData()){
                 current = current.getLeft();
+
             }
             else{
                 current = current.getRight();
@@ -216,16 +263,18 @@ public class BST {
                 System.out.print("\t");
 
                 if(current.getLeft() != null){
+
                     queue.add(current.getLeft());
                 }
                 if (current.getRight() != null){
+
                     queue.add(current.getRight());
                 }
 
             }
         }
 
-        private int getNodeHeight(TNode node){
+        public int getNodeHeight(TNode node){
             int nodeHeight = 0;
             while(node.getParent() != null){
                 nodeHeight++;
@@ -234,17 +283,37 @@ public class BST {
             return nodeHeight;
 
         }
+        public TNode getRoot(){
+        return this.root;
+        }
+        public void setRoot(TNode node){
+        this.root = node;
+        }
 
         public static void main(String[] args){
 
         BST tree = new BST();
-        tree.Insert(10);
-        tree.Insert(9);
-        tree.Insert(11);
-        tree.Insert(8);
-        tree.Insert(12);
-        tree.Insert(13);
-        tree.printBF();
+        TNode five  = new TNode();
+        five.setData(5);
+            TNode one  = new TNode();
+            one.setData(1);
+            TNode three  = new TNode();
+            three.setData(3);
+            TNode seven  = new TNode();
+            seven.setData(7);
+
+            tree.Insert(five);
+            tree.Insert(three);
+            tree.Insert(one);
+            tree.Insert(seven);
+
+        //tree.printBF();
+            // System.out.println(three.getLeft().getData());
+
+
+
+
+
 
 
         }
