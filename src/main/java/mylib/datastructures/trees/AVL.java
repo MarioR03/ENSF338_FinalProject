@@ -129,32 +129,5 @@ public void printInOrder(){
         super.printBF();
     }
 
-public static void main(String[] args){
 
-        BST tree = new BST();
-        tree.Insert(1000);
-    tree.Insert(10);
-    tree.Insert(15);
-    tree.Insert(5);
-    tree.Insert(1);
-    tree.Insert(6);
-
-
-
-
-
-        TNode node = tree.Search(1000);
-
-        AVL newTree = new AVL(node);
-        //ArrayList<TNode> array = newTree.getAllChildren();
-        TNode root = newTree.getRoot();
-
-    System.out.println(newTree.getRoot().getLeft());
-
-
-
-
-
-
-}
 }

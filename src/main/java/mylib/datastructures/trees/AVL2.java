@@ -411,38 +411,6 @@ public class AVL2 extends BST {
         }
     }
 
-    public static void main(String[] args){
 
-        BST tree = new BST();
-        tree.Insert(1000);
-        tree.Insert(10);
-        tree.Insert(15);
-        tree.Insert(5);
-        tree.Insert(1);
-        tree.Insert(6);
-          tree.Insert(4);
-          tree.Insert(5);
-          tree.Insert(6);
-          tree.Insert(3);
-          tree.Insert(2);
-
-
-
-
-
-
-
-
-        //ArrayList<TNode> array = getAllChildren(tree.getRoot());
-        AVL2 newTree = new AVL2(tree.getRoot());
-        newTree.printBF();
-
-
-
-//        for(int i = 0; i < array.size();i++){
-//            System.out.println(String.format("Node index %d has data member %d, parent pointer %s, left pointer %s, and right pointer %s",i,array.get(i).getData(),array.get(i).getParent(),array.get(i).getLeft(),array.get(i).getRight()));
-//        }
-
-    }
 
 }

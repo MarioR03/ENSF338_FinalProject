@@ -290,33 +290,7 @@ public class BST {
         this.root = node;
         }
 
-        public static void main(String[] args){
 
-        BST tree = new BST();
-        TNode five  = new TNode();
-        five.setData(5);
-            TNode one  = new TNode();
-            one.setData(1);
-            TNode three  = new TNode();
-            three.setData(3);
-            TNode seven  = new TNode();
-            seven.setData(7);
-
-            tree.Insert(five);
-            tree.Insert(three);
-            tree.Insert(one);
-            tree.Insert(seven);
-
-        //tree.printBF();
-            // System.out.println(three.getLeft().getData());
-
-
-
-
-
-
-
-        }
 
 
 }
