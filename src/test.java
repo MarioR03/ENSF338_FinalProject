@@ -5,45 +5,45 @@ import java.util.Random;
 public class test {
     public static void main(String[] args){
         // CSLL circle = new CSLL();
-
-        Random rand = new Random();
-
-        // for(int i=0; i < 50; i++){
-        //     int int_random = rand.nextInt(50);
-        //     circle.InsertHead(new DNode(int_random));
-        // }
-        // circle.Print();
-        // System.out.println("---------");
-        // circle.Sort();
-        // circle.Print();
-
-
-        // CDLL dcircle = new CDLL();
-        
-        // for(int i =0; i< 20; i++){
-        //     int num = rand.nextInt(20);
-        //     dcircle.InsertHead(new DNode(num));
-        // }
-
-        // dcircle.Print();
-        // System.out.println("-----");
-        // dcircle.Sort();
-        // dcircle.Print();
-
-        CDLL doubly = new CDLL();
-        doubly.InsertHead(new DNode(4));
-        doubly.InsertHead(new DNode(2));
-        doubly.InsertHead(new DNode(5));
-        // for(int i=0; i < 3; i++){
-        //     int int_random = rand.nextInt(50);
-        //     doubly.InsertHead(new DNode(int_random));
-        // }
-        doubly.Print();
-        System.out.println(doubly.printAll());
-        System.out.println("---");
-        doubly.Sort();
-        doubly.Print();
-        System.out.println(doubly.printAll());
+//
+//        Random rand = new Random();
+//
+//        // for(int i=0; i < 50; i++){
+//        //     int int_random = rand.nextInt(50);
+//        //     circle.InsertHead(new DNode(int_random));
+//        // }
+//        // circle.Print();
+//        // System.out.println("---------");
+//        // circle.Sort();
+//        // circle.Print();
+//
+//
+//        // CDLL dcircle = new CDLL();
+//
+//        // for(int i =0; i< 20; i++){
+//        //     int num = rand.nextInt(20);
+//        //     dcircle.InsertHead(new DNode(num));
+//        // }
+//
+//        // dcircle.Print();
+//        // System.out.println("-----");
+//        // dcircle.Sort();
+//        // dcircle.Print();
+//
+//        CDLL doubly = new CDLL();
+//        doubly.InsertHead(new DNode(4));
+//        doubly.InsertHead(new DNode(2));
+//        doubly.InsertHead(new DNode(5));
+//        // for(int i=0; i < 3; i++){
+//        //     int int_random = rand.nextInt(50);
+//        //     doubly.InsertHead(new DNode(int_random));
+//        // }
+//        doubly.Print();
+//        System.out.println(doubly.printAll());
+//        System.out.println("---");
+//        doubly.Sort();
+//        doubly.Print();
+//        System.out.println(doubly.printAll());
 
         //System.out.println("head: " + doubly.getHead() + " tail: " + doubly.getTail());
     }

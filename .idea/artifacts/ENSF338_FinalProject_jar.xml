@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ENSF338_FinalProject:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ENSF338_FinalProject_jar</output-path>
+    <root id="archive" name="ENSF338_FinalProject.jar">
+      <element id="module-output" name="ENSF338_FinalProject" />
+    </root>
+  </artifact>
+</component>
