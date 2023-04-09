@@ -4,6 +4,10 @@ import main.java.mylib.datastructures.nodes.TNode;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * An AVL Tree
+ */
+
 public class AVL extends BST {
 
     private TNode root;
@@ -38,20 +42,29 @@ public class AVL extends BST {
             }
 
         }
-    public TNode getRoot(){
+    /**
+     * Returns root
+     */
+        public TNode getRoot(){
         return this.root;
     }
-
+    /**
+     * Sets root
+     */
     public void setRoot(TNode node){
         super.setRoot(node);
 
     }
-
+    /**
+     * Inserts value into tree
+     */
     public void Insert(int val){
         super.Insert(val);
 
     }
-
+    /**
+     * Inserts value in node form into tree
+     */
     public void Insert(TNode node){
         super.Insert(node);
 
@@ -172,6 +185,9 @@ public class AVL extends BST {
         }
     }
     // performs a left rotation
+    /**
+     * performs a left rotation
+     */
     private void lRotate(TNode pivot,TNode ancestor, TNode son,TNode insert){
         // If pivot is root
 
@@ -217,6 +233,9 @@ public class AVL extends BST {
 
     }
     // performs a right rotation
+    /**
+     * performs a right rotation
+     */
         private void rRotate(TNode pivot,TNode ancestor, TNode son, TNode insert){
 
         // If pivot is root
@@ -256,6 +275,9 @@ public class AVL extends BST {
         }
     }
     //performs a left-right rotation, as outlined by the steps in the lecture slides
+    /**
+     * performs a left-right rotation
+     */
     private void lrRotate(TNode pivotNode,TNode ancestor,TNode grandson,TNode son,TNode node){
         pivotNode.setLeft(grandson);
         grandson.setParent(pivotNode);
@@ -296,6 +318,9 @@ public class AVL extends BST {
 
     }
    //performs a right-left rotation, as outlined by the steps in the lecture slides
+    /**
+     * performs a right-left rotation
+     */
     private void rlRotate(TNode pivotNode,TNode ancestor,TNode grandson,TNode son,TNode node) {
         pivotNode.setRight(grandson);
         grandson.setParent(pivotNode);
@@ -334,20 +359,33 @@ public class AVL extends BST {
         }
     }
 
-
+    /**
+     * deletes a node from tree
+     */
     public void Delete(int val){
     super.Delete(val);
     }
+    /**
+     * Searches for a value and returns that node
+     */
     public TNode Search(int val){
         return super.Search(val);
     }
+    /**
+     * Prints tree in ascending order
+     */
     public void printInOrder(){
         super.printInOrder();
     }
+    /**
+     * Prints tree in breadth first order
+     */
     public void printBF(){
         super.printBF();
     }
-
+    /**
+     * Makes a new array list of all the descendant nodes, including node passed in
+     */
     // Pulls all child nodes into an array of breadth first ordering into an array. These new nodes only share data values, they are otherwise new nodes
     public static ArrayList<TNode> getAllChildren(TNode node) {
         if (node == null) {
@@ -383,6 +421,9 @@ public class AVL extends BST {
 
     // Checks the balance of a node by finding the heights of the subtrees and seeing if the difference is greater than 1
     // A return of true means a rotation in the AVL tree must be made
+    /**
+     * Checks the balance of a node at any given point
+     */
     public boolean checkBalance(TNode node){
         if(node == null)
             return false;
@@ -399,7 +440,10 @@ public class AVL extends BST {
     }
 
 
-    //Recursively finds the height of a node
+
+    /**
+     * Recursively finds the height of a node
+     */
     public static int treeHeight(TNode node){
         if(node == null){
             return 0;

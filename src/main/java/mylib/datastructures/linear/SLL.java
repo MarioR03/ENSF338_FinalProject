@@ -1,7 +1,9 @@
 package main.java.mylib.datastructures.linear;
 
 import main.java.mylib.datastructures.nodes.DNode;
-
+/**
+ * Represents a singly linked list
+ */
 public class SLL {
     protected DNode head;
     protected DNode tail;
@@ -21,6 +23,10 @@ public class SLL {
     }
 
     // Insertions
+    /**
+     * InsertHead
+     * @param node - Node to be inserted at head
+     */
     public void InsertHead(DNode node) {
         // If the list is empty
         if (this.counter == 0) {
@@ -33,7 +39,10 @@ public class SLL {
         }
         this.counter++;
     }
-
+    /**
+     * InsertTail
+     * @param node - Node to be inserted at tail
+     */
     public void InsertTail(DNode node) {
         // If the list is empty
         if (this.counter == 0) {
@@ -46,7 +55,11 @@ public class SLL {
         }
         this.counter++;
     }
-
+    /**
+     * Insert
+     * @param node - Node to be inserted
+     * @param position - index of insertion position
+     */
     public void Insert(DNode node, int position) throws IndexOutOfBoundsException {
         if (position < 0 || position > this.counter) {
             throw new IndexOutOfBoundsException();
@@ -80,7 +93,11 @@ public class SLL {
         }
         this.counter++;
     }
-
+    /**
+     * SortedInsert
+     * @param node - Node to be inserted in sorted linked list
+     * sorts linked list of not sorted
+     */
     public void SortedInsert(DNode node) {
         node.setNext(null);
         node.setPrevious(null);
@@ -113,6 +130,10 @@ public class SLL {
     }
 
     // helper function
+    /**
+     * isSorted
+     * @return - true or false depending on if list is sorted
+     */
     protected boolean isSorted() {
         if (this.head == null || this.head.getNext() == null) {
             return true;
@@ -138,7 +159,10 @@ public class SLL {
         }
         return null;
     }
-
+    /**
+     * DeleteHead
+     * Deletes node at head
+     */
     // Deletions
     public void DeleteHead() {
         // If the list is empty, do nothing
@@ -156,7 +180,10 @@ public class SLL {
             this.counter--;
         }
     }
-
+    /**
+     * DeleteTail
+     * Deletes node at tail
+     */
     public void DeleteTail() {
         // If the list is empty, do nothing
         if (this.head == null) {
@@ -181,7 +208,10 @@ public class SLL {
         // Decrement the counter
         this.counter--;
     }
-
+    /**
+     * Delete
+     * @param node - Deletes node from linked list
+     */
     public void Delete(DNode node) {
         // Check if the node is the head
         if (this.head.getData() == node.getData()) {
@@ -219,7 +249,10 @@ public class SLL {
             prevNode = prevNode.getNext();
         }
     }
-
+    /**
+     * Sort
+     * Sorts the list
+     */
     public void Sort() {
         // If the list is empty or has only one node, it is already sorted
         if (this.head == null || this.head.getNext() == null || this.isSorted()) {
@@ -253,6 +286,10 @@ public class SLL {
     }
 
     // THIS IS TO CLEAR THE WHOLE LL
+    /**
+     * Clear
+     * Clears the entire list
+     */
     public void Clear() {
         // Set the head pointer to null, effectively removing all nodes from the list
         this.head = null;
@@ -260,7 +297,10 @@ public class SLL {
         // Reset the counter to zero to indicate an empty list
         this.counter = 0;
     }
-
+    /**
+     * Print
+     * Prints linked list to terminal
+     */
     public void Print() {
         // Print the list length
         System.out.println("List length: " + this.counter);

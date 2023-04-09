@@ -4,7 +4,9 @@ import main.java.mylib.datastructures.nodes.TNode;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
+/**
+ * A Binary Search Tree
+ */
 public class BST {
     private TNode root;
 
@@ -19,7 +21,10 @@ public class BST {
     public BST(TNode node){
         this.root = node;
     }
-
+    /**
+     * Inserts a node into the tree
+     * @param val value to be inserted
+     */
     public void Insert(int val){
         // Initialize new Node
         TNode newNode = new TNode();
@@ -53,7 +58,10 @@ public class BST {
             }
             }
 
-
+    /**
+     * Inserts a node into the tree
+     * @param node node to be inserted
+     */
         public void Insert(TNode node){
 
             // Initialize new Node
@@ -87,6 +95,10 @@ public class BST {
                 newNode.setParent(previous);
             }
         }
+    /**
+     * Delete
+     * @param val value to be deleted
+     */
         public void Delete(int val){
 
         TNode nodeToDelete = Search(val);
@@ -183,7 +195,11 @@ public class BST {
 
 
     }
-
+    /**
+     * Search
+     * @param val value to be searched for
+     * @return node with specified value
+     */
         public TNode Search(int val){
 
         TNode current = this.root;
@@ -209,6 +225,9 @@ public class BST {
         }
 
         // Checks if the root is null, and calls method that prints all values in ascending order
+    /**
+     * Prints all values in ascending order
+     */
         public void printInOrder(){
         if(this.root == null){
             System.out.println("Tree has no nodes to print");
@@ -221,6 +240,9 @@ public class BST {
         }
 
         // A recursive depth first search method provided in the notes
+    /**
+     * A helper function for printing all values in order
+     */
         public void inOrderRecursion(TNode node){
         if(node != null){
             inOrderRecursion(node.getLeft());
@@ -231,6 +253,9 @@ public class BST {
         }
 
         // A breadth first implementation provided in the notes. Prints each line of the tree
+    /**
+     * Prints tree based on height
+     */
         public void printBF(){
             if(this.root == null){
                 System.out.println("Tree has no nodes to print");
@@ -273,7 +298,9 @@ public class BST {
 
             }
         }
-
+    /**
+     * Gets the height of a node in a tree
+     */
         public int getNodeHeight(TNode node){
             int nodeHeight = 0;
             while(node.getParent() != null){
@@ -283,9 +310,15 @@ public class BST {
             return nodeHeight;
 
         }
+    /**
+     * Returns root of tree
+     */
         public TNode getRoot(){
         return this.root;
         }
+    /**
+     * Sets root of tree
+     */
         public void setRoot(TNode node){
         this.root = node;
         }

@@ -2,6 +2,9 @@ package main.java.mylib.datastructures.linear;
 
 import main.java.mylib.datastructures.nodes.DNode;
 
+/**
+ * Represents a Linked List based Queue
+ */
 public class QueueLL extends SLL{
     public QueueLL(){
         super();
@@ -9,19 +12,34 @@ public class QueueLL extends SLL{
     public QueueLL(DNode node){
         super(node);
     }
-
+    /**
+     * enqueue
+     * @param - node to enqueue
+     */
     public void enqueue(DNode node){
         super.InsertTail(node);
     }
+    /**
+     * dequeue
+     * @return - node that was dequeued
+     */
     public DNode dequeue(){
 
         DNode node = this.head;
         super.DeleteHead();
         return node;
     }
+    /**
+     * peek
+     * @return - head of the queue
+     */
     public DNode peek(){
         return this.head;
     }
+    /**
+     * peek
+     * @return - value that is to be searched for in queue, -1 if not found
+     */
     public int search(DNode node){
         DNode current = this.head;
         for(int i=0; i < this.counter; i++){
