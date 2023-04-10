@@ -9,23 +9,28 @@ public class SLL {
     protected DNode tail;
     protected int counter;
 
-    // Contructors
+    /**
+     * Default constructor that creates an empty SLL
+     */
     public SLL() {
         this.head = null;
         this.tail = null;
         this.counter = 0;
     }
 
+    /**
+     * Default constructor that creates a SLL with one object
+     * @param node a DNode object you wish to insert into the SLL
+     */
     public SLL(DNode node) {
         this.head = node;
         this.tail = node;
         this.counter = 1;
     }
 
-    // Insertions
     /**
      * InsertHead
-     * @param node - Node to be inserted at head
+     * @param node - DNode onject to be inserted at head
      */
     public void InsertHead(DNode node) {
         // If the list is empty
@@ -41,7 +46,7 @@ public class SLL {
     }
     /**
      * InsertTail
-     * @param node - Node to be inserted at tail
+     * @param node - DNode onject to be inserted at tail
      */
     public void InsertTail(DNode node) {
         // If the list is empty
@@ -57,7 +62,7 @@ public class SLL {
     }
     /**
      * Insert
-     * @param node - Node to be inserted
+     * @param node - DNode object to be inserted
      * @param position - index of insertion position
      */
     public void Insert(DNode node, int position) throws IndexOutOfBoundsException {
@@ -95,8 +100,8 @@ public class SLL {
     }
     /**
      * SortedInsert
-     * @param node - Node to be inserted in sorted linked list
-     * sorts linked list of not sorted
+     * @param node - DNode to be inserted in sorted linked list
+     * If linked list is not soarted, will sort the list and then insert the node into the sorted list
      */
     public void SortedInsert(DNode node) {
         node.setNext(null);
@@ -148,6 +153,12 @@ public class SLL {
         return true;
     }
 
+    /**
+     * 
+     * @param node - DNode object you wish to find
+     * @return - the DNode object if it exists in the list, else, it returns a null value
+     * Will search through the linked list to find the DNode provided
+     */
     public DNode Search(DNode node) {
         DNode current = this.head;
         for (int i = 0; i < this.counter; i++) {
@@ -159,11 +170,11 @@ public class SLL {
         }
         return null;
     }
+
     /**
      * DeleteHead
-     * Deletes node at head
-     */
-    // Deletions
+     * Deletes DNode object at head
+    */
     public void DeleteHead() {
         // If the list is empty, do nothing
         if (this.head == null) {
@@ -210,7 +221,9 @@ public class SLL {
     }
     /**
      * Delete
-     * @param node - Deletes node from linked list
+     * @param node - Deletes DNode object from linked list
+     * Searches through the list to find the node with the same data and deletes it
+     * If the node is not found then nothing happens
      */
     public void Delete(DNode node) {
         // Check if the node is the head
@@ -251,7 +264,8 @@ public class SLL {
     }
     /**
      * Sort
-     * Sorts the list
+     * Uses insertion sort to sort the list
+     * Utilizes the SortedInsert method
      */
     public void Sort() {
         // If the list is empty or has only one node, it is already sorted
@@ -300,6 +314,7 @@ public class SLL {
     /**
      * Print
      * Prints linked list to terminal
+     * Prints if the linked list is sorted or not
      */
     public void Print() {
         // Print the list length

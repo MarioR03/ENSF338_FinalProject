@@ -6,9 +6,16 @@ import main.java.mylib.datastructures.nodes.DNode;
  * Represents a Linked List based Queue
  */
 public class QueueLL extends SLL{
+    /**
+     * Default constructor that creates an empty QueueLL
+     */
     public QueueLL(){
         super();
     }
+    /**
+     * Default constructor that creates a QueueLL with one object
+     * @param node a DNode object you wish to insert into the QueueLL
+     */
     public QueueLL(DNode node){
         super(node);
     }
@@ -50,27 +57,58 @@ public class QueueLL extends SLL{
         }
         return -1;
     }
+    /**
+     * empty
+     * @return - boolean value that tells you if the list is empty or not
+     */
     public boolean empty(){
         return this.head == null;
     }
+    /**
+     * Deletes every element in the QueueLL and leaves you with an empty QueueLL
+     */
     public void clear(){
         super.Clear();
     }
 
+    /**
+     * Does nothing as this is not a proper method for a QueueLL
+     */
     @Override
     public void InsertHead(DNode node) {}
+    /**
+     * Does nothing as this is not a proper method for a QueueLL
+     */
     @Override
     public void InsertTail(DNode node) {}
+    /**
+     * Does nothing as this is not a proper method for a QueueLL
+     */
     @Override
     public void Insert(DNode node, int position){}
+    /**
+     * Does nothing as this is not a proper method for a QueueLL
+     */
     @Override
     public void SortedInsert(DNode node) {}
+    /**
+     * Does nothing as this is not a proper method for a QueueLL
+     */
     @Override
     public void DeleteHead() {}
+    /**
+     * Does nothing as this is not a proper method for a QueueLL
+     */
     @Override
     public void DeleteTail() {}
+    /**
+     * Does nothing as this is not a proper method for a QueueLL
+     */
     @Override
     public void Delete(DNode node) {}
+    /**
+     * Does nothing as this is not a proper method for a QueueLL
+     */
     @Override
     public void Sort() {}
 }

@@ -5,13 +5,24 @@ import main.java.mylib.datastructures.nodes.DNode;
 
 public class CDLL extends DLL {
 
+    /**
+     * Default constructor that creates an empty CDLL
+     */
     public CDLL() {
         super();
     }
 
+    /**
+     * Default constructor that creates a CDLL with one object
+     * @param node a DNode object you wish to insert into the CDLL
+     */
     public CDLL(DNode node) {
     }
 
+    /**
+     * InsertHead
+     * @param node - DNode onject to be inserted at head
+     */
     @Override
     public void InsertHead(DNode node) {
         super.InsertHead(node);
@@ -27,6 +38,10 @@ public class CDLL extends DLL {
         this.tail.setNext(this.head);
     }
 
+    /**
+     * InsertTail
+     * @param node - DNode onject to be inserted at tail
+     */
     @Override
     public void InsertTail(DNode node) {
         super.InsertTail(node);
@@ -34,6 +49,11 @@ public class CDLL extends DLL {
         this.tail.setNext(this.head);
     }
 
+    /**
+     * Insert
+     * @param node - DNode object to be inserted
+     * @param position - index of insertion position
+     */
     @Override
     public void Insert(DNode node, int position) throws IndexOutOfBoundsException {
         if (position < 0 || position > this.counter) { // Incase they try to put a node in a position further out than
@@ -54,6 +74,11 @@ public class CDLL extends DLL {
         }
     }
 
+    /**
+     * SortedInsert
+     * @param node - DNode to be inserted in sorted linked list
+     * If linked list is not sorted, will sort the list and then insert the node into the sorted list
+     */
     @Override
     public void SortedInsert(DNode node) {
         if (this.head == null) { // list is empty
@@ -87,6 +112,10 @@ public class CDLL extends DLL {
         }
     }
 
+    /**
+     * isSorted
+     * protected helper method used to check if the CDLL is sorted
+     */
     protected boolean isSorted() {
         if (this.head == null || this.head.getNext() == null) {
             return true;
@@ -107,6 +136,10 @@ public class CDLL extends DLL {
 
     // search will use super class
 
+    /**
+     * DeleteHead
+     * Deletes DNode object at head
+    */
     @Override
     public void DeleteHead() {
         super.DeleteHead();
@@ -114,6 +147,10 @@ public class CDLL extends DLL {
         this.tail.setNext(this.head);
     }
 
+    /**
+     * DeleteTail
+     * Deletes node at tail
+     */
     @Override
     public void DeleteTail() {
         super.DeleteTail();
@@ -121,6 +158,12 @@ public class CDLL extends DLL {
         this.head.setPrevious(this.tail);
     }
 
+    /**
+     * Delete
+     * @param node - Deletes DNode object from linked list
+     * Searches through the list to find the node with the same data and deletes it
+     * If the node is not found then nothing happens
+     */
     @Override
     public void Delete(DNode node) {
         // Check if the node is the head
@@ -144,7 +187,10 @@ public class CDLL extends DLL {
             }
         }
     }
-
+    /**
+     * Sort
+     * Uses insertion sort to sort the list
+     */
     public void Sort() {
         if (this.counter == 0 || this.counter == 1) {
             // List is empty or has only one element, nothing to sort
@@ -187,6 +233,11 @@ public class CDLL extends DLL {
         }
     }
 
+    /**
+     * Print
+     * Prints linked list to terminal
+     * Prints if the linked list is sorted or not
+     */
     @Override
     public void Print() {
         // Print the list length
@@ -208,9 +259,5 @@ public class CDLL extends DLL {
             } while (current != this.head);
         }
         System.out.println();
-    }
-    public String printAll() {
-        return "head: " + this.head.getData() + " head.getNext(): " + head.getNext().getData() + " tail: "
-                + this.tail.getData() + " tail.getNext(): " + this.tail.getNext().getData();
     }
 }

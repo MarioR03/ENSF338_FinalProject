@@ -3,12 +3,19 @@ package main.java.mylib.datastructures.linear;
 import main.java.mylib.datastructures.nodes.DNode;
 
 public class CSLL extends SLL {
-    // Does not use a tail pointer, only head
 
+    /**
+     * Default constructor that creates an empty CSLL
+     */
     public CSLL() {
         super();
     }
 
+    /**
+     * Default constructor that creates a CSLL with one object
+     * 
+     * @param node a DNode object you wish to insert into the CSLL
+     */
     public CSLL(DNode node) {
         this.head = node;
         this.tail = node;
@@ -16,24 +23,47 @@ public class CSLL extends SLL {
         this.counter = 1;
     }
 
+    /**
+     * InsertHead
+     * 
+     * @param node - DNode onject to be inserted at head
+     */
     @Override
     public void InsertHead(DNode node) {
         super.InsertHead(node);
         this.tail.setNext(this.head);
     }
 
+    /**
+     * InsertTail
+     * 
+     * @param node - DNode onject to be inserted at tail
+     */
     @Override
     public void InsertTail(DNode node) {
         super.InsertTail(node);
         this.tail.setNext(this.head);
     }
 
+    /**
+     * Insert
+     * 
+     * @param node     - DNode object to be inserted
+     * @param position - index of insertion position
+     */
     @Override
     public void Insert(DNode node, int position) throws IndexOutOfBoundsException {
         super.Insert(node, position);
         this.tail.setNext(this.head);
     }
 
+    /**
+     * SortedInsert
+     * 
+     * @param node - DNode to be inserted in sorted linked list
+     *             If linked list is not soarted, will sort the list and then insert
+     *             the node into the sorted list
+     */
     @Override
     public void SortedInsert(DNode node) {
         if (this.counter == 0) {
@@ -70,6 +100,12 @@ public class CSLL extends SLL {
         this.counter++;
     }
 
+    /**
+     * isSorted
+     * 
+     * @return - true or false depending on if list is sorted
+     *         private helper function
+     */
     @Override
     protected boolean isSorted() {
         int count = this.counter;
@@ -88,12 +124,20 @@ public class CSLL extends SLL {
 
     // Search will use the parent method
 
+    /**
+     * DeleteHead
+     * Deletes DNode object at head
+     */
     @Override
     public void DeleteHead() {
         super.DeleteHead();
         this.tail.setNext(this.head);
     }
 
+    /**
+     * DeleteTail
+     * Deletes node at tail
+     */
     @Override
     public void DeleteTail() {
         super.DeleteTail();
@@ -101,12 +145,24 @@ public class CSLL extends SLL {
         ;
     }
 
+    /**
+     * Delete
+     * 
+     * @param node - Deletes DNode object from linked list
+     *             Searches through the list to find the node with the same data and
+     *             deletes it
+     *             If the node is not found then nothing happens
+     */
     @Override
     public void Delete(DNode node) {
         super.Delete(node);
         this.tail.setNext(this.head);
     }
 
+    /**
+     * Sort
+     * Uses insertion sort to sort the list
+     */
     @Override
     public void Sort() {
         if (this.isSorted()) {
@@ -129,6 +185,11 @@ public class CSLL extends SLL {
 
     // Clear will use the parent method
 
+    /**
+     * Print
+     * Prints linked list to terminal
+     * Prints if the linked list is sorted or not
+     */
     @Override
     public void Print() {
         // Print the list length
@@ -149,15 +210,4 @@ public class CSLL extends SLL {
         }
         System.out.println();
     }
-
-    // these are used for tests==
-    public String printAll() {
-        return "head: " + this.head.getData() + " head.getNext(): " + head.getNext().getData() + " tail: "
-                + this.tail.getData() + " tail.getNext(): " + this.tail.getNext().getData();
-    }
-
-    public int getTail() {
-        return this.tail.getData();
-    }
-
 }

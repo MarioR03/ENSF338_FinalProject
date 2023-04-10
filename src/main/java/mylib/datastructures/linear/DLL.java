@@ -4,15 +4,25 @@ import main.java.mylib.datastructures.nodes.DNode;
 
 public class DLL extends SLL {
 
-    // Contructor
+    /**
+     * Default constructor that creates an empty DLL
+     */
     public DLL() {
         super();
     }
 
+    /**
+     * Default constructor that creates a DLL with one object
+     * @param node a DNode object you wish to insert into the DLL
+     */
     public DLL(DNode node) {
         super(node);
     }
 
+    /**
+     * InsertHead
+     * @param node - DNode onject to be inserted at head
+     */
     @Override
     public void InsertHead(DNode node) {
         // If the list is empty
@@ -31,6 +41,10 @@ public class DLL extends SLL {
     }
 
     // Insertions
+    /**
+     * InsertTail
+     * @param node - DNode onject to be inserted at tail
+     */
     @Override
     public void InsertTail(DNode node) {
         if (this.counter == 0) {
@@ -47,6 +61,11 @@ public class DLL extends SLL {
         counter++;
     }
 
+    /**
+     * Insert
+     * @param node - DNode object to be inserted
+     * @param position - index of insertion position
+     */
     @Override
     public void Insert(DNode node, int position) throws IndexOutOfBoundsException {
         if (position < 0 || position > this.counter) { // Incase they try to put a node in a position further out than
@@ -92,6 +111,11 @@ public class DLL extends SLL {
         this.counter++;
     }
 
+    /**
+     * SortedInsert
+     * @param node - DNode to be inserted in sorted linked list
+     * If linked list is not sorted, will sort the list and then insert the node into the sorted list
+     */
     @Override
     public void SortedInsert(DNode node) {
         node.setNext(null);
@@ -133,6 +157,10 @@ public class DLL extends SLL {
     // Search will just use the superclass
 
     // Deletions
+    /**
+     * DeleteHead
+     * Deletes DNode object at head
+    */
     @Override
     public void DeleteHead() {
         super.DeleteHead();
@@ -141,6 +169,10 @@ public class DLL extends SLL {
         }
     }
 
+    /**
+     * DeleteTail
+     * Deletes node at tail
+     */
     @Override
     public void DeleteTail() {
         // If the list is empty, do nothing
@@ -160,6 +192,12 @@ public class DLL extends SLL {
         }
     }
 
+    /**
+     * Delete
+     * @param node - Deletes DNode object from linked list
+     * Searches through the list to find the node with the same data and deletes it
+     * If the node is not found then nothing happens
+     */
     @Override
     public void Delete(DNode node) {
         // Check if the node is the head
@@ -184,6 +222,11 @@ public class DLL extends SLL {
         }
     }
 
+    /**
+     * Sort
+     * Uses insertion sort to sort the list
+     * Utilizes the SortedInsert method
+     */
     @Override
     public void Sort() {
         // If the list is empty or has only one node, it is already sorted
@@ -222,11 +265,4 @@ public class DLL extends SLL {
 
     // Print uses the super class
 
-    //used for testing
-    public DNode getHead(){
-        return this.head;
-    }
-    public DNode getTail(){
-        return this.tail;
-    }
 }
