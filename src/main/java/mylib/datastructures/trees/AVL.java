@@ -20,6 +20,10 @@ public class AVL extends BST {
         this.root = constructorNode;
     }
 
+    /**
+     * AVL constructor
+     * @param node - TNode to insert into the empty AVL tree
+     */
     public AVL(TNode node){
         //Create an array of all nodes, first the root node, then all of its children
         ArrayList<TNode> allNodes = getAllChildren(node);
@@ -43,13 +47,14 @@ public class AVL extends BST {
 
         }
     /**
-     * Returns root
+     * @return - Returns root
      */
         public TNode getRoot(){
         return this.root;
     }
     /**
      * Sets root
+     * @param node - TNode to set as Root
      */
     public void setRoot(TNode node){
         super.setRoot(node);
@@ -57,6 +62,7 @@ public class AVL extends BST {
     }
     /**
      * Inserts value into tree
+     * @param val - val to insert into the tree
      */
     public void Insert(int val){
         super.Insert(val);
@@ -64,6 +70,7 @@ public class AVL extends BST {
     }
     /**
      * Inserts value in node form into tree
+     * @param node - TNode to insert to the tree
      */
     public void Insert(TNode node){
         super.Insert(node);
@@ -187,6 +194,10 @@ public class AVL extends BST {
     // performs a left rotation
     /**
      * performs a left rotation
+     * @param pivot - pivot TNode
+     * @param ancestor - ancestor TNode
+     * @param son - son TNode
+     * @param insert - insert TNode
      */
     private void lRotate(TNode pivot,TNode ancestor, TNode son,TNode insert){
         // If pivot is root
@@ -235,8 +246,12 @@ public class AVL extends BST {
     // performs a right rotation
     /**
      * performs a right rotation
+     * @param pivot - pivot TNode
+     * @param ancestor - ancestor TNode
+     * @param son - son TNode
+     * @param insert - insert TNode
      */
-        private void rRotate(TNode pivot,TNode ancestor, TNode son, TNode insert){
+    private void rRotate(TNode pivot,TNode ancestor, TNode son, TNode insert){
 
         // If pivot is root
 
@@ -277,6 +292,11 @@ public class AVL extends BST {
     //performs a left-right rotation, as outlined by the steps in the lecture slides
     /**
      * performs a left-right rotation
+     * @param pivotNode - pivot TNode
+     * @param ancestor - ancestor TNode
+     * @param son - son TNode
+     * @param grandson - grandson TNode
+     * @param node - TNode
      */
     private void lrRotate(TNode pivotNode,TNode ancestor,TNode grandson,TNode son,TNode node){
         pivotNode.setLeft(grandson);
@@ -320,6 +340,11 @@ public class AVL extends BST {
    //performs a right-left rotation, as outlined by the steps in the lecture slides
     /**
      * performs a right-left rotation
+     * @param pivotNode - pivot TNode
+     * @param ancestor - ancestor TNode
+     * @param son - son TNode
+     * @param grandson - grandson TNode
+     * @param node - TNode
      */
     private void rlRotate(TNode pivotNode,TNode ancestor,TNode grandson,TNode son,TNode node) {
         pivotNode.setRight(grandson);
@@ -361,18 +386,22 @@ public class AVL extends BST {
 
     /**
      * deletes a node from tree
+     * @param val - Value to delete from the tree
      */
     public void Delete(int val){
     super.Delete(val);
     }
     /**
      * Searches for a value and returns that node
+     * @param val - Value to check if inside node
+     * @return - The node found
      */
     public TNode Search(int val){
         return super.Search(val);
     }
     /**
      * Prints tree in ascending order
+     *
      */
     public void printInOrder(){
         super.printInOrder();
@@ -385,6 +414,8 @@ public class AVL extends BST {
     }
     /**
      * Makes a new array list of all the descendant nodes, including node passed in
+     * @param node - This is the node who's children you want
+     * @return - ArrayList(TNode) of all the children nodes of node
      */
     // Pulls all child nodes into an array of breadth first ordering into an array. These new nodes only share data values, they are otherwise new nodes
     public static ArrayList<TNode> getAllChildren(TNode node) {
@@ -423,6 +454,8 @@ public class AVL extends BST {
     // A return of true means a rotation in the AVL tree must be made
     /**
      * Checks the balance of a node at any given point
+     * @param node - TNode to check if balanced
+     * @return - Boolean value that tells you if it is balanced or not
      */
     public boolean checkBalance(TNode node){
         if(node == null)
@@ -443,6 +476,8 @@ public class AVL extends BST {
 
     /**
      * Recursively finds the height of a node
+     * @param node - TNode who's height you want
+     * @return - int height of the node
      */
     public static int treeHeight(TNode node){
         if(node == null){
@@ -454,7 +489,4 @@ public class AVL extends BST {
             return (Math.max(leftHeight,rightHeight) + 1);
         }
     }
-
-
-
 }

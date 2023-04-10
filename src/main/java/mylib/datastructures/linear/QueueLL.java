@@ -20,8 +20,9 @@ public class QueueLL extends SLL{
         super(node);
     }
     /**
-     * enqueue
-     * @param - node to enqueue
+     * Inserts the given node at the tail of the queue.
+     * 
+     * @param node the node to enqueue
      */
     public void enqueue(DNode node){
         super.InsertTail(node);
@@ -44,7 +45,8 @@ public class QueueLL extends SLL{
         return this.head;
     }
     /**
-     * peek
+     * search
+     * @param node - DNode object you are looking for
      * @return - value that is to be searched for in queue, -1 if not found
      */
     public int search(DNode node){

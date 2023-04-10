@@ -24,12 +24,14 @@ public class TNode {
     }
     /**
      * Returns data value
+     * @return - data from node (int)
      */
     public int getData() {
         return data;
     }
     /**
      * Sets Data Value
+     * @param data - data for the node to hold (int)
      */
     public void setData(int data) {
         this.data = data;
@@ -38,24 +40,28 @@ public class TNode {
     // Getter and setter for "left"
     /**
      * Gets Left node
+     * @return - TNode to the left of this TNode
      */
     public TNode getLeft() {
         return left;
     }
     /**
      * Sets Left Node
+     * @param left - Sets left TNode for this TNode
      */
     public void setLeft(TNode left) {
         this.left = left;
     }
     /**
      * Gets Right Node
+     * @return - TNode to the right of this TNode
      */
     public TNode getRight() {
         return right;
     }
     /**
      * sets Right Node
+     * @param right - Sets right TNode for this TNode
      */
     public void setRight(TNode right) {
         this.right = right;
@@ -63,24 +69,28 @@ public class TNode {
 
     /**
      * Gets Parent Node
+     * @return - Parent TNode
      */
     public TNode getParent() {
         return parent;
     }
     /**
-     * Sets Right Node
+     * Sets Parent Node
+     * @param parent - New parent TNode
      */
     public void setParent(TNode parent) {
         this.parent = parent;
     }
     /**
      * Gets Node Balance
+     * @return - balance of TNode
      */
     public int getBalance() {
         return balance;
     }
     /**
      * Sets Node Balance
+     * @param balance - Sets the balance of the TNode
      */
     public void setBalance(int balance) {
         this.balance = balance;

@@ -242,6 +242,7 @@ public class BST {
         // A recursive depth first search method provided in the notes
     /**
      * A helper function for printing all values in order
+     * @param node - .
      */
         public void inOrderRecursion(TNode node){
         if(node != null){
@@ -300,6 +301,8 @@ public class BST {
         }
     /**
      * Gets the height of a node in a tree
+     * @param node - TNode who's height you want
+     * @return - Returns the height of the TNode
      */
         public int getNodeHeight(TNode node){
             int nodeHeight = 0;
@@ -312,12 +315,14 @@ public class BST {
         }
     /**
      * Returns root of tree
+     * @return - root of tree
      */
         public TNode getRoot(){
         return this.root;
         }
     /**
      * Sets root of tree
+     * @param node - TNode to set as the new root
      */
         public void setRoot(TNode node){
         this.root = node;

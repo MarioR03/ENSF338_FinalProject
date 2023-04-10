@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"main.java.mylib.datastructures.linear"},{"l":"main.java.mylib.datastructures.nodes"},{"l":"main.java.mylib.datastructures.trees"}]
