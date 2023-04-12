@@ -65,7 +65,9 @@ public class AVL extends BST {
      * @param val - val to insert into the tree
      */
     public void Insert(int val){
-        super.Insert(val);
+        TNode node = new TNode();
+        node.setData(val);
+        Insert(node);
 
     }
     /**
@@ -489,4 +491,37 @@ public class AVL extends BST {
             return (Math.max(leftHeight,rightHeight) + 1);
         }
     }
+
+    public static void main(String[] args){
+        System.out.println("Empty BST created, values 50,25,70,75,21 added");
+        AVL testTree = new AVL();
+        testTree.Insert(50);
+        testTree.Insert(25);
+        testTree.Insert(70);
+        testTree.Insert(75);
+        testTree.Insert(21);
+        testTree.printBF();
+        System.out.print("\n");
+        System.out.println("------------------------------");
+        System.out.println("Node with data value 1 added to tree(Rotation is performed)");
+        TNode exampleNode = new TNode();
+        exampleNode.setData(1);
+        testTree.Insert(exampleNode);
+        testTree.printBF();
+        System.out.print("\n");
+        System.out.println("------------------------------");
+        System.out.println("Attempt delete for value 1000:");
+        testTree.Delete(1000);
+        System.out.print("\n");
+        System.out.println("------------------------------");
+        System.out.println(String.format("Searching for value of 75 in list: %d",testTree.Search(75).getData()));
+        System.out.println(String.format("Searching for value of 2 in list: %d",testTree.Search(2)));
+        System.out.print("\n");
+        System.out.println("------------------------------");
+        System.out.println("Testing printInOrder");
+        testTree.printInOrder();
+
+    }
+
+
 }

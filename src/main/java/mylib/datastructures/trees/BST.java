@@ -324,11 +324,51 @@ public class BST {
      * Sets root of tree
      * @param node - TNode to set as the new root
      */
-        public void setRoot(TNode node){
+    public void setRoot(TNode node){
         this.root = node;
         }
 
 
+
+    public static void main(String[] args){
+        System.out.println("Empty BST created, values 10,7,13,12,15 added");
+            BST testTree = new BST();
+            testTree.Insert(10);
+    testTree.Insert(7);
+    testTree.Insert(13);
+    testTree.Insert(12);
+    testTree.Insert(15);
+    testTree.printBF();
+        System.out.print("\n");
+        System.out.println("------------------------------");
+        System.out.println("Node with data value 1 added to tree");
+        TNode exampleNode = new TNode();
+    exampleNode.setData(1);
+    testTree.Insert(exampleNode);
+    testTree.printBF();
+        System.out.print("\n");
+    System.out.println("------------------------------");
+        System.out.println("Value 13 is deleted");
+        testTree.Delete(13);
+        testTree.printBF();
+        System.out.print("\n");
+        System.out.println("------------------------------");
+        System.out.println(String.format("Searching for value of 1 in list: %d",testTree.Search(1).getData()));
+        System.out.println(String.format("Searching for value of 100 in list: %d",testTree.Search(100)));
+        System.out.print("\n");
+        System.out.println("------------------------------");
+        System.out.println("Testing printInOrder");
+        testTree.printInOrder();
+
+
+
+
+
+
+
+
+
+    }
 
 
 }

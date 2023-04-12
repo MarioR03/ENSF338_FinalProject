@@ -1,4 +1,7 @@
 package main.java.mylib.datastructures.nodes;
+
+import main.java.mylib.datastructures.trees.BST;
+
 /**
  * Nodes for Tree data structures
  */
@@ -102,5 +105,33 @@ public class TNode {
         System.out.println(String.format("Node data value is %d,", this.getData()));
     }
 
+    public static void main(String[] args){
+        System.out.println("Initializing a set of null nodes and assigning them values of 1,2,3");
+        TNode nodeOne = new TNode();
+        TNode nodeTwo = new TNode();
+        TNode nodeThree = new TNode();
+        nodeOne.setData(1);
+        nodeTwo.setData(2);
+        nodeThree.setData(3);
+        System.out.println(String.format("nodeOne has data value %d",nodeOne.getData()));
+        System.out.println(String.format("nodeTwo has data value %d",nodeTwo.getData()));
+        System.out.println(String.format("nodeThree has data value %d",nodeThree.getData()));
+        System.out.print("\n");
+        System.out.println("------------------------------");
+        System.out.println("Use Left/Right/Parent setters to establish 2 as the root, with 1 and 3 on the left and right");
+        System.out.println("We will use BST PrintBF to test if the correct connections were made");
+        nodeTwo.setLeft(nodeOne);
+        nodeTwo.setRight(nodeThree);
+        nodeOne.setParent(nodeTwo);
+        nodeThree.setParent(nodeTwo);
+        BST test = new BST(nodeTwo);
+        test.printBF();
+        System.out.print("\n");
+        System.out.println("------------------------------");
+        System.out.println("Add node using second constructor to establish node with value 5 below node of value 3");
+        TNode nodeFive = new TNode(5,0,nodeThree,null,null);
+        nodeThree.setRight(nodeFive);
+        test.printBF();
+    }
 
 }
