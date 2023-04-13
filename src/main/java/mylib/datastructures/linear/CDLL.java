@@ -2,7 +2,6 @@ package main.java.mylib.datastructures.linear;
 
 import main.java.mylib.datastructures.nodes.DNode;
 
-
 public class CDLL extends DLL {
 
     /**
@@ -14,13 +13,20 @@ public class CDLL extends DLL {
 
     /**
      * Default constructor that creates a CDLL with one object
+     * 
      * @param node a DNode object you wish to insert into the CDLL
      */
     public CDLL(DNode node) {
+        this.head = node;
+        this.tail = node;
+        this.head.setPrevious(node);
+        this.tail.setNext(node);
+        this.counter = 1;
     }
 
     /**
      * InsertHead
+     * 
      * @param node - DNode onject to be inserted at head
      */
     @Override
@@ -40,6 +46,7 @@ public class CDLL extends DLL {
 
     /**
      * InsertTail
+     * 
      * @param node - DNode onject to be inserted at tail
      */
     @Override
@@ -51,7 +58,8 @@ public class CDLL extends DLL {
 
     /**
      * Insert
-     * @param node - DNode object to be inserted
+     * 
+     * @param node     - DNode object to be inserted
      * @param position - index of insertion position
      */
     @Override
@@ -76,8 +84,10 @@ public class CDLL extends DLL {
 
     /**
      * SortedInsert
+     * 
      * @param node - DNode to be inserted in sorted linked list
-     * If linked list is not sorted, will sort the list and then insert the node into the sorted list
+     *             If linked list is not sorted, will sort the list and then insert
+     *             the node into the sorted list
      */
     @Override
     public void SortedInsert(DNode node) {
@@ -85,27 +95,40 @@ public class CDLL extends DLL {
             this.head = this.tail = node;
             node.setPrevious(node); // make it circular
             node.setNext(node);
+            this.counter = 1;
             return;
         }
 
         if (isSorted()) { // list is sorted
             DNode current = this.head;
-            while (current.getData() < node.getData() && current != this.tail) {
+            if(node.getData() < this.head.getData()){ //Inserting at head
+                node.setNext(this.head);
+                node.setPrevious(this.tail);
+                this.head.setPrevious(node);
+                this.tail.setNext(node);
+                this.head = node;
+                this.counter++;
+                return;
+            }
+            current = current.getNext();
+            while(current.getData() < node.getData() && current != this.head){
                 current = current.getNext();
             }
-
-            if (current == this.head) { // insert at head
-                this.head = node;
+            if(current == this.head){ //Inserting at tail
+                node.setNext(this.head);
+                node.setPrevious(this.tail);
+                this.head.setPrevious(node);
+                this.tail.setNext(node);
+                this.tail = node;
+                this.counter++;
+                return;
             }
-
             node.setNext(current);
             node.setPrevious(current.getPrevious());
-            current.getPrevious().setNext(node);
             current.setPrevious(node);
+            node.getPrevious().setNext(node);
+            this.counter++;
 
-            if (node.getNext() == this.head) { // insert at tail
-                this.tail = node;
-            }
         } else { // list is not sorted
             Sort(); // sort the list first
             SortedInsert(node); // insert the node after sorting
@@ -120,11 +143,11 @@ public class CDLL extends DLL {
         if (this.head == null || this.head.getNext() == null) {
             return true;
         }
-    
+
         DNode current = this.head.getNext();
         DNode prev = this.head;
-        while(current != this.head){
-            if(current.getData() < prev.getData()){
+        while (current != this.head) {
+            if (current.getData() < prev.getData()) {
                 return false;
             }
             current = current.getNext();
@@ -133,18 +156,27 @@ public class CDLL extends DLL {
         return true;
     }
 
-
     // search will use super class
 
     /**
      * DeleteHead
      * Deletes DNode object at head
-    */
+     */
     @Override
     public void DeleteHead() {
-        super.DeleteHead();
-        this.head.setPrevious(this.tail);
-        this.tail.setNext(this.head);
+        if (this.counter == 0) {
+            return;
+        }
+        if (this.head == this.tail) {
+            this.head = null;
+            this.tail = null;
+            this.counter = 0;
+        } else {
+            this.head = this.head.getNext();
+            this.head.setPrevious(this.tail);
+            this.tail.setNext(this.head);
+            this.counter--;
+        }
     }
 
     /**
@@ -153,16 +185,28 @@ public class CDLL extends DLL {
      */
     @Override
     public void DeleteTail() {
-        super.DeleteTail();
-        this.tail.setNext(this.head);
-        this.head.setPrevious(this.tail);
+        if (this.counter == 0) {
+            return;
+        }
+        if (this.head == this.tail) {
+            this.head = null;
+            this.tail = null;
+            this.counter = 0;
+        } else {
+            this.tail = this.tail.getPrevious();
+            this.tail.setNext(this.head);
+            this.head.setPrevious(this.tail);
+            this.counter--;
+        }
     }
 
     /**
      * Delete
+     * 
      * @param node - Deletes DNode object from linked list
-     * Searches through the list to find the node with the same data and deletes it
-     * If the node is not found then nothing happens
+     *             Searches through the list to find the node with the same data and
+     *             deletes it
+     *             If the node is not found then nothing happens
      */
     @Override
     public void Delete(DNode node) {
@@ -187,6 +231,7 @@ public class CDLL extends DLL {
             }
         }
     }
+
     /**
      * Sort
      * Uses insertion sort to sort the list
@@ -211,23 +256,23 @@ public class CDLL extends DLL {
                 while (temp.getPrevious() != this.tail && current.getData() < temp.getPrevious().getData()) {
                     temp = temp.getPrevious();
                 }
-                //take the node out
+                // take the node out
                 prev.setNext(next);
                 next.setPrevious(prev);
-                if(prev.getNext() == this.head){
+                if (prev.getNext() == this.head) {
                     this.tail = prev;
                 }
-                //put it back into the most proper spot
+                // put it back into the most proper spot
                 current.setNext(temp);
                 current.setPrevious(temp.getPrevious());
                 current.getPrevious().setNext(current);
                 current.getNext().setPrevious(current);
-                if(current.getPrevious() == this.tail){
+                if (current.getPrevious() == this.tail) {
                     this.head = current;
                 }
 
                 current = next;
-            } else{
+            } else {
                 current = current.getNext();
             }
         }
@@ -259,5 +304,80 @@ public class CDLL extends DLL {
             } while (current != this.head);
         }
         System.out.println();
+    }
+    public static void main(String[] args) {
+        // Create an instance of the class
+        CDLL linkedList = new CDLL();
+
+        // Testing out head an tail insertion
+        linkedList.InsertHead(new DNode(0));
+        linkedList.InsertHead(new DNode(1));
+        linkedList.InsertTail(new DNode(4));
+        System.out.println("\n-----Testing out head an tail insertion-----");
+        linkedList.Print();
+
+        // Testing out the other insertion
+        linkedList.Insert(new DNode(3), 2);
+        linkedList.Insert(new DNode(9), 4);
+        System.out.println("\n-----Testing out the other insertion-----");
+        linkedList.Print();
+
+        // Testing out the delete methods
+        linkedList.DeleteHead();
+        linkedList.DeleteTail();
+        System.out.println("\n-----Testing out the head and tail deletion-----");
+        linkedList.Print();
+
+        // Testing the other delete method
+        linkedList.Delete(new DNode(3));
+        System.out.println("\n-----Testing the other delete method-----");
+        linkedList.Print();
+
+        // Deleting until nothing left to delete
+        linkedList.DeleteHead();
+        linkedList.DeleteHead();
+        linkedList.DeleteHead();
+        linkedList.DeleteHead();
+        System.out.println("\n-----Deleting until nothing left in the LL-----");
+        linkedList.Print();
+
+        // Using the other constructor
+        linkedList = new CDLL(new DNode(50));
+        System.out.println("\n-----Testing the second constructor-----");
+        linkedList.Print();
+
+        // Testing the SortedInsert method
+        linkedList.SortedInsert(new DNode(34));
+        linkedList.SortedInsert(new DNode(2));
+        linkedList.SortedInsert(new DNode(53));
+        linkedList.SortedInsert(new DNode(12));
+        System.out.println("\n-----Testing the SortedInsert method-----");
+        linkedList.Print();
+
+        //Testing the clear method
+        linkedList.Clear();
+        System.out.println("\n-----Testing the Clear method-----");
+        linkedList.Print();
+
+        //Testing the Sort method
+        linkedList.InsertHead(new DNode(10));
+        linkedList.InsertHead(new DNode(5));
+        linkedList.InsertHead(new DNode(15));
+        linkedList.InsertHead(new DNode(1));
+        linkedList.InsertHead(new DNode(20));
+        linkedList.Sort();
+        System.out.println("\n-----Testing the Sort method-----");
+        linkedList.Print();
+
+        //CLEARING and then testing out InsertionSort on an unsorted list
+        linkedList.Clear();
+        linkedList.InsertHead(new DNode(0));
+        linkedList.InsertHead(new DNode(1));
+        linkedList.InsertHead(new DNode(2));
+        linkedList.InsertHead(new DNode(4));
+        linkedList.InsertHead(new DNode(5));
+        linkedList.SortedInsert(new DNode(3));
+        System.out.println("\n-----Testing InsertionSort on an unsorted list-----");
+        linkedList.Print();
     }
 }

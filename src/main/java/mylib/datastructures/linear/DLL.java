@@ -265,4 +265,80 @@ public class DLL extends SLL {
 
     // Print uses the super class
 
+    public static void main(String[] args){
+        //Create an instance of the class
+        DLL linkedList = new DLL();
+
+        //Testing out head an tail insertion
+        linkedList.InsertHead(new DNode(0));
+        linkedList.InsertHead(new DNode(1));
+        linkedList.InsertTail(new DNode(4));
+        System.out.println("\n-----Testing out head an tail insertion-----");
+        linkedList.Print();
+
+        //Testing out the other insertion
+        linkedList.Insert(new DNode(3), 2);
+        linkedList.Insert(new DNode(9), 4);
+        System.out.println("\n-----Testing out the other insertion-----");
+        linkedList.Print();
+
+        //Testing out the delete methods
+        linkedList.DeleteHead();
+        linkedList.DeleteTail();
+        System.out.println("\n-----Testing out the head and tail deletion-----");
+        linkedList.Print();
+
+        //Testing the other delete method
+        linkedList.Delete(new DNode(3));
+        System.out.println("\n-----Testing the other delete method-----");
+        linkedList.Print();
+
+        //Deleting until nothing left to delete
+        linkedList.DeleteHead();
+        linkedList.DeleteHead();
+        linkedList.DeleteHead();
+        linkedList.DeleteHead();
+        System.out.println("\n-----Deleting until nothing left in the LL-----");
+        linkedList.Print();
+
+
+        //Using the other constructor
+        linkedList = new DLL(new DNode(50));
+        System.out.println("\n-----Testing the second constructor-----");
+        linkedList.Print();
+
+        //Testing the SortedInsert method
+        linkedList.SortedInsert(new DNode(34));
+        linkedList.SortedInsert(new DNode(2));
+        linkedList.SortedInsert(new DNode(53));
+        linkedList.SortedInsert(new DNode(12));
+        System.out.println("\n-----Testing the SortedInsert method-----");
+        linkedList.Print();
+
+        //Testing the clear method
+        linkedList.Clear();
+        System.out.println("\n-----Testing the Clear method-----");
+        linkedList.Print();
+
+        //Testing the Sort method
+        linkedList.InsertHead(new DNode(10));
+        linkedList.InsertHead(new DNode(5));
+        linkedList.InsertHead(new DNode(15));
+        linkedList.InsertHead(new DNode(1));
+        linkedList.InsertHead(new DNode(20));
+        linkedList.Sort();
+        System.out.println("\n-----Testing the Sort method-----");
+        linkedList.Print();
+
+        //CLEARING and then testing out InsertionSort on an unsorted list
+        linkedList.Clear();
+        linkedList.InsertHead(new DNode(0));
+        linkedList.InsertHead(new DNode(1));
+        linkedList.InsertHead(new DNode(2));
+        linkedList.InsertHead(new DNode(4));
+        linkedList.InsertHead(new DNode(5));
+        linkedList.SortedInsert(new DNode(3));
+        System.out.println("\n-----Testing InsertionSort on an unsorted list-----");
+        linkedList.Print();
+    }
 }
